@@ -1,0 +1,15 @@
+<div class="text-center well  col-md-8 col-sm-offset-{{2+admin_margin}}">
+	<h3  style="margin-top:-10px;">Parties Terminée</h3>
+	<div ng-repeat="finished_game in finished_games track by finished_game.id_game">
+		<div class="col-md-3 "><h2><span ng-class="finished_game.score_1 > finished_game.score_2 ? 'label-success' : finished_game.score_1 < finished_game.score_2 ? 'label-danger' : 'label-warning'" class="label">{{finished_game.user_name_1}}</span></h2></div>
+		<div class="col-md-6">
+			<div class="btn-group btn-group-lg" style="margin-top:15px;">
+				<button class="btn disabled">{{finished_game.score_1}}</button>
+				<button type="button" class="btn btn-primary disabled">Partie Terminée</button>
+				<button class="btn disabled">{{finished_game.score_2}}</button>
+			</div>
+		</div>
+		<div class="col-md-3"><h2><span ng-class="finished_game.score_2 > finished_game.score_1 ? 'label-success' : finished_game.score_2 < finished_game.score_1 ? 'label-danger' : 'label-warning'" class="label">{{finished_game.user_name_2}}</span></h2>
+		</div>
+	</div>
+</div>

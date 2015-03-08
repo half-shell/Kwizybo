@@ -1,0 +1,17 @@
+<div class="well col-md-4 col-md-offset-{{4+admin_margin}}">
+	<h3 class="text-center" style="margin-top: -5px">Ajout d'un Thème</h3>
+	<form method="post" action="php/add_themes.php">
+		<div class="form-group">
+				<label>Nom du thème</label>
+				<input class="form-control" type="text" name="theme_name" />
+ 		</div>
+ 		<div class="form-group">
+				<label>Description</label>
+				<textarea name="description" class="form-control" rows="5" style="resize: none;"></textarea>
+ 		</div>
+  			<p class="text-center">
+  			<button class="btn btn-default" type="submit">Ajouter le Thème</button>
+  			<button class="btn btn-default" type="reset">Effacer</button>
+  			</p>
+	</form>
+</div>

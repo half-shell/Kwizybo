@@ -1,0 +1,29 @@
+<div class="well col-md-4 col-md-offset-{{4+ admin_margin}}">
+	<h3 class="text-center" style="margin-top: -5px">Inscription</h3>
+	<form method="post" action="php/add_user.php">
+		<div class="form-group">
+   			<label>Identifiant</label>
+   			<input class="form-control" type="text" name="pseudo"/>
+ 		</div>
+ 		<div class="form-group">
+   			<label>Mot de passe</label>
+   			<input class="form-control" type="password" name="password" />
+ 		</div>
+ 		<div class="form-group">
+   			<label>Confirmation du Mot de Passe</label>
+   			<input class="form-control" type="password" name="password_confirmation" />
+ 		</div>
+ 		<div class="form-group">
+   			<label>Addresse e-mail (facultatif)</label>
+   			<input class="form-control" type="text" name="mail"/>
+ 		</div>
+ 		<div class="form-group">
+   			<label>Classe</label>
+   			<input class="form-control" type="text" name="class" />
+ 		</div>
+   		<p class="text-center">
+   			<button class="btn btn-default" type="submit">S'Inscrire</button>
+   			<button class="btn btn-default" type="reset">Effacer</button>
+   		</p>
+	</form>
+</div>

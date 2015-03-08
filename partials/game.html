@@ -1,0 +1,61 @@
+<div class="container col-md-8 col-md-offset-{{2+admin_margin}}">
+	<div ng-show="viewTheme == false && launched == false && round < 4" class="text-center well  col-md-6 col-md-offset-3" >
+		<button type="button" ng-class="{disabled: playing_games.length >= 5}" class="btn btn-success btn-lg" ng-show="round == 0" ng-click='NewGame(current_user.id_user,current_user.pseudo)'>Nouvelle Partie </button>
+	</div>
+
+	<div ng-show="viewTheme == false && launched == false && playing_games.length > 0" class="text-center well  col-md-12" ng->
+		<h3  style="margin-top:-10px;">Parties En Cours</h3>
+		<div ng-repeat="playing_game in playing_games track by playing_game.id_game">
+			<div class="col-md-3 "><h2><span ng-class="playing_game.user_name_1 == current_user.pseudo ? 'label-primary' : 'label-default'" class="label">{{playing_game.user_name_1}}</span></h2></div>
+			<div class="col-md-6">
+				<div class="btn-group btn-group-lg" style="margin-top:15px;">
+				<button  class="btn disabled">{{playing_game.score_1}}</button>
+				<button type="button" ng-click="ContinueGame(playing_game.id_game)" ng-class="current_user.id_user != playing_game.current_player ? 'disabled btn-warning' : 'btn-success'"class="btn " >Manche Suivante</button>
+				<button class="btn disabled">{{playing_game.score_2}}</button>
+				</div>
+			</div>
+			<div class="col-md-3"><h2><span ng-class="playing_game.user_name_2 == current_user.pseudo ? 'label-primary' : 'label-default'" class="label">{{playing_game.user_name_2}}</span></h2>
+			</div>
+		</div>
+	</div>
+
+	<br/>
+	<div class="well text-center col-md-6 col-md-offset-3" ng-show="viewTheme">
+		<button type="button" ng-repeat="theme in randThemes" ng-click="themeSelect(theme.id_theme)" style="white-space: normal; width:200px; margin:10px;" class="btn btn-default btn-lg">{{theme.name_theme}}</button>
+	</div>
+	<div class="well well-sm text-center col-md-6 col-md-offset-3" ng-show="launched" ng-repeat="question in playings" >
+	 	<h4><span class="label label-success">Question {{turn+1}} </span></h4>
+		<h3>{{question.value}}</h3>
+		<button type="button" ng-repeat="reponse in question.reponses | orderBy:'rank' " ng-click="reponseCheck(reponse.valid)" style="white-space: normal; width:200px; margin:10px;" class="btn btn-default btn-lg btn-lock">{{reponse.name}}</button>
+	</div>
+	
+	<div ng-show="launched || round > 1" >
+		<div ng-hide="viewTheme" class="well well-sm col-md-2 col-md-offset-5 text-center">
+			<div ng-show="launched">
+				<h3> Manche : {{round}}</h3>
+				<div class="progress">
+  					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{scoreRound/3*100}}%">
+					</div>
+					<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{falseRep/3*100}}%">
+					</div>
+				</div>
+			</div>
+			<div ng-show=" round > 1 && launched == false && viewTheme == false">
+				<h2>Résultats</h2>
+				<h2><span class="label label-success">{{score}} / {{(round - 1) * 3  }}</span></h2>
+				<br/>
+			</div>
+			<div ng-repeat="i in [1,2,3]">
+				<div ng-show=" round > i && launched == false && viewTheme == false">
+					<h4>Manche {{i}} :</h4>
+					<div class="progress">
+  						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{savedScore[i]*100}}%">
+						</div>
+						<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{sevedFalseRep[i]*100}}%">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

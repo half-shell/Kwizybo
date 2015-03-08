@@ -1,0 +1,35 @@
+<div class="well col-md-4 col-md-offset-{{4+admin_margin}}">
+	<h3 class="text-center" style="margin-top: -5px">Ajout d'une Question</h3>
+	<form method="post" action="php/add_question.php">
+		<div class="form-group">
+   		<label>Thème</label>
+   		<select class="form-control" name="theme_id">
+				<option ng-repeat="theme in themes" value="{{theme.id_theme}}">{{theme.name_theme}}</option>
+			</select>
+		</div>
+ 		<div class="form-group">
+   			<label>Question</label>
+   			<input class="form-control" type="text" name="value"/>
+ 		</div>
+ 		<div class="form-group">
+   			<label>Bonne réponse</label>
+   			<input class="form-control" type="text" name="good_rep"/>
+ 		</div>
+ 		<div class="form-group">
+   			<label>Mauvaise réponse</label>
+   			<input class="form-control" type="text" name="bad_rep1"/>
+ 		</div>
+ 		<div class="form-group">
+   			<label>Mauvaise réponse</label>
+   			<input class="form-control" type="text" name="bad_rep2"/>
+ 		</div>
+ 		<div class="form-group">
+   			<label>Mauvaise réponse</label>
+   			<input class="form-control" type="text" name="bad_rep3"/>
+ 		</div>
+   		<p class="text-center">
+   		<button class="btn btn-default" type="submit">Ajouter la Question</button>
+   		<button class="btn btn-default" type="reset">Effacer</button>
+   		</p>
+	</form>
+</div>
