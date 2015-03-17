@@ -107,6 +107,7 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
             })
           };
       });
+        console.log($scope.questions);
   
 
   ThemeRandom = function(){
@@ -131,8 +132,8 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
   };
 
   playQuestion = function(theme_id){
-    themeQuestions(theme_id);
-    rand = Math.floor((Math.random() * $scope.questionsThemed.length));
+    titi = themeQuestions(theme_id);
+    rand = Math.floor((Math.random() * titi.length));
     $scope.playings = [$scope.questionsThemed[rand]];
     for(var i = 0 ; i < $scope.playings[0].reponses.length; i++){
       $scope.playings[0].reponses[i].rank = Math.random();
@@ -231,11 +232,18 @@ app.controller('AddQuestions', ['$scope', '$http', function($scope,$http) {
       });
 }]);
 
+app.controller('SignIn', ['$scope', '$http', function($scope,$http) {
+    $http.get('./php/get_class.php').
+      success(function(data) {
+        $scope.classes_user = data;
+      });
+}]);
+
 app.controller('GameStory', ['$scope', '$http','gameStoryService', function($scope,$http,gameStoryService) {
 
     $scope.GetFinishedGames = function(id){
     var toto = gameStoryService.get_finished_games(id);
-    toto.then(function(data) {
+      toto.then(function(data) {
         $scope.finished_games = data;
       });
     };
@@ -246,9 +254,10 @@ app.controller('GameStory', ['$scope', '$http','gameStoryService', function($sco
 app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
   load_scope = function(){
     $http.get('./php/get_unvalidate_questions.php').
-        success(function(data) {
-          $scope.unvalid_questions = data;
-        });
+      success(function(data) {
+        $scope.unvalid_questions = data;
+        $scope.questions_to_validate = data.length;
+      });
   };
 
   $http.get('./php/get_themes.php').
@@ -273,8 +282,10 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
           'bad_rep1': question.bad_rep1,
           'bad_rep2': question.bad_rep2,
           'bad_rep3': question.bad_rep3}
-      );
-    load_scope();
+      ).
+      success(function(){
+        load_scope();
+      });
     };
   load_scope();
 }]);

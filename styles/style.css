@@ -2,3 +2,24 @@ body {
 	padding-top: 70px; 
 	margin-left: 180px; 
 }
+
+.bg-text{
+	word-break: break-all;
+	letter-spacing:5px;
+	text-align: center;
+	margin-top: -20px;
+	line-height: 70%;
+	font-size: 30px;
+	position: fixed;
+	color: #f4f4f4;
+	z-index: -10;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

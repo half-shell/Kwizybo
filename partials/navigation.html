@@ -1,25 +1,27 @@
-<nav ng-show="admin" class="navbar navbar-default navbar-fixed-top col-md-2" style="margin-top: 51px; margin-left: -15px; height:100%;padding-right:0px; box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5); z-index: 2;">
-	<ul class="nav nav-pills nav-stacked">
+<nav ng-show="admin" class="navbar navbar-default navbar-fixed-top col-md-2" style="margin-top: 51px; height:100%; box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5); z-index: 2;">
+	<ul class="nav nav-pills nav-stacked" style="padding-bottom:5px">
+		<h4>Outils de Gestion</h4>
 		<li ng-class="{active: active('/Themes')}">
 			<a href="#/Themes"><span class="glyphicon glyphicon-inbox"></span> Ajouter un Thème</a>
 		</li>
 		<li ng-class="{active: active('/ValiderQuestions')}">
-			<a href="#/ValiderQuestions"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Valider des Questions<span data-ng-show="questions_to_validate >= 1" class="badge pull-right">{{questions_to_validate}}</span></a>
+			<a href="#/ValiderQuestions" ><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Valider des Questions<span data-ng-show="questions_to_validate >= 1" class="badge pull-right">{{questions_to_validate}}</span></a>
 		</li>
 	</ul>
 </nav>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5); z-index: 1;">
-	<a class="navbar-brand" href="#/Home">LectorQuizz</a>
-	<ul class="nav navbar-nav">
-		<li ng-show="is_logged == true" ng-class="{active: active('/Game')}">
-			<a href="#/Game">Jouer&nbsp&nbsp<span ng-show="notif >= 1" class="label label-danger">{{notif}}</span></a>
-		</li>
+	
+	<ul class="nav navbar-nav col-md-5">
+		<a class="navbar-brand" href="#/Home">LectorQuizz</a>
 		<li ng-show="is_logged == true" ng-class="{active: active('/Historique')}">
 			<a href="#/Historique">Historique</a>
 		</li>
 		<li ng-show="is_logged == true" ng-class="{ active: active('/Questions')}">
 			<a href="#/Questions">Ajouter une Question</a>
 		</li>
+	</ul>
+	<ul class="nav navbar-nav col-md-3">
+		<a style="margin-top:8px" class="btn btn-warning col-md-offset-3" href="#/Game" role="button"  ng-show="is_logged == true" ng-class="{active: active('/Game')}">Jouer <span ng-show="notif >= 1">&nbsp<span class="label label-danger">{{notif}}</span></span></a>
 	</ul>
 	<ul class="nav navbar-nav navbar-right" style="padding-right: 15px">
 		<li ng-show="is_logged == false" ng-class="{ active: active('/Connexion')}">
