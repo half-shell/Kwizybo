@@ -192,6 +192,10 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
     };
     if($scope.current_game.round >= (total_round*2)) $scope.current_game.is_finished = true;
     var toto = gameService.new_turn($scope.current_game);
+    toto.then(function(data){
+      $scope.GetNotifGames($scope.current_user.id_user);
+       $scope.GetPlayingGames($scope.current_user.id_user);
+    })
 
     $scope.scoreRound = 0;
     $scope.falseRep = 0;
@@ -204,6 +208,7 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
     if(turnNum == 3){
       $scope.savedScore[$scope.current_game.round] = $scope.scoreRound / 3;
       $scope.sevedFalseRep[$scope.current_game.round] = $scope.falseRep / 3;
+
       if($scope.current_user.id_user == $scope.current_game.user_id_1){
         $scope.current_game.current_player = $scope.current_game.user_id_2;
       }else{
@@ -362,7 +367,7 @@ app.controller('AddQuizz', ['$scope','$http', function($scope,$http){
 }]);
 
 app.controller('SetThemes', ['$scope','$http', function($scope,$http){
-  load_scope = function(){
+  load_scope_theme = function(){
     $http.get('./php/get_setting_theme.php').
       success(function(data) {
         $scope.themes = data;
@@ -393,8 +398,8 @@ app.controller('SetThemes', ['$scope','$http', function($scope,$http){
           'bad_rep3': question.bad_rep3}
       ).
       success(function(){
-        load_scope();
+        load_scope_theme();
       });
     };
-  load_scope();
+  load_scope_theme();
 }]);
