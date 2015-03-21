@@ -15,6 +15,4 @@
         $sql = "UPDATE questions SET value_question = '$value',theme_id = '$theme_id', good_rep = '$good_rep', bad_rep1 = '$bad_rep1', bad_rep2 = '$bad_rep2', bad_rep3 = '$bad_rep3', valid = '1' WHERE id_question = '$id'";
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
-        echo $sql;
-
 ?>

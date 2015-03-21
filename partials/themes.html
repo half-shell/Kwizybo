@@ -7,6 +7,11 @@
 				<input class="form-control" type="text" name="theme_name" ng-model="data.name_theme"/>
  		</div>
  		<div class="form-group" ng-class="{'has-error': bad_infos}">
+				<label class="control-label">Nom du thème</label>
+				<select class="form-control" ng-model="data.quizz_id" ng-options="qz.id_quizz as qz.name_quizz for qz in quizz">
+				</select>
+ 		</div>
+ 		<div class="form-group" ng-class="{'has-error': bad_infos}">
 				<label class="control-label">Description</label>
 				<textarea name="description" class="form-control" rows="5"  ng-model="data.description_theme" style="resize: none;"></textarea>
  		</div>

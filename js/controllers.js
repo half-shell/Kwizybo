@@ -90,7 +90,7 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
   $scope.viewTheme = false;
   $scope.questions = [];
 
-  $http.get('./php/get_themes.php').
+  $http.get('./php/get_valid_themes.php').
       success(function(data) {
         $scope.themes = data;
       });
@@ -113,7 +113,6 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
             })
           };
       });
-        console.log($scope.questions);
   
 
   ThemeRandom = function(){
@@ -126,7 +125,21 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
         i-- ;
       }
     }
-  }
+  };
+
+  NoQuestionRepeat = function(theme_id){
+    $scope.randQuestions = [];
+    titi = themeQuestions(theme_id);
+    for (var i = 0; i < 3; i++ ){
+      randq = Math.floor((Math.random() * titi.length));
+      if($.inArray(titi[randq],$scope.randQuestions) == -1){
+        $scope.randQuestions.push(titi[randq]);
+      }else{
+        i-- ;
+      }
+    }
+    return $scope.randQuestions;
+  };
 
   themeQuestions = function(theme_id) {
     $scope.questionsThemed = [];
@@ -134,23 +147,26 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
       if($scope.questions[i].theme_id == theme_id){
         $scope.questionsThemed.push($scope.questions[i]);
       }
+
     return $scope.questionsThemed;
   };
 
   playQuestion = function(theme_id){
-    titi = themeQuestions(theme_id);
-    rand = Math.floor((Math.random() * titi.length));
-    $scope.playings = [$scope.questionsThemed[rand]];
+    if($scope.turn < 3) $scope.playings = [$scope.all_playings[$scope.turn]];
     for(var i = 0 ; i < $scope.playings[0].reponses.length; i++){
       $scope.playings[0].reponses[i].rank = Math.random();
     };
+    console.log($scope.playings[0]);
   };
 
   $scope.themeSelect = function(theme_id){
     $scope.viewTheme = false;
     $scope.currentTheme = theme_id;
     $scope.launched = true;
+    $scope.playings = [];
+    $scope.all_playings = NoQuestionRepeat(theme_id);
     playQuestion(theme_id);
+    console.log($scope.all_playings);
   };
 
   $scope.GetPlayingGames = function(id){
@@ -309,10 +325,15 @@ app.controller('AddTheme', ['$scope','$http', function($scope,$http){
   $scope.bad_infos = false;
   $scope.succes_add = false;
 
+   $http.get('./php/get_quizz.php').
+    success(function(data) {
+      $scope.quizz = data;
+  });
+
   $scope.add_theme = function(data){
-    console.log(data);
     if(data){
     $http.post('./php/add_themes.php',{
+      'quizz_id': data.quizz_id,
       'name_theme': data.name_theme,
       'description_theme': data.description_theme
     })
@@ -320,6 +341,7 @@ app.controller('AddTheme', ['$scope','$http', function($scope,$http){
       if(msg.success == true){
         $scope.infos = true;
         $scope.succes_add = true;
+        $scope.bad_infos = false;
         $scope.msg = "Thème ajouté avec succès";
       }else{
         $scope.infos = true;
@@ -341,7 +363,6 @@ app.controller('AddQuizz', ['$scope','$http', function($scope,$http){
   $scope.succes_add = false;
 
   $scope.add_quizz = function(data){
-    console.log(data);
     if(data){
     $http.post('./php/add_quizz.php',{
       'name_quizz': data.name_quizz
@@ -350,6 +371,7 @@ app.controller('AddQuizz', ['$scope','$http', function($scope,$http){
       if(msg.success == true){
         $scope.infos = true;
         $scope.succes_add = true;
+        $scope.bad_infos = false;
         $scope.msg = "Quizz ajouté avec succès. Celui-ci a pour CODE : ";
         $scope.quizz_code = msg.code_quizz;
       }else{
@@ -379,13 +401,45 @@ app.controller('SetThemes', ['$scope','$http', function($scope,$http){
       $scope.quizz = data;
   });
 
-  $scope.is_questions = function(){
-    if($scope.unvalid_questions){
-      return $scope.unvalid_questions.length;
-    }else{
-      return 0;
-    }
+  $scope.validation = function(theme) {
+    $http.post('./php/update_themes.php',{
+          'id': theme.id_theme, 
+          'name_theme': theme.name_theme,
+          'description_theme': theme.description_theme,
+          'playable': theme.playable
+      }).
+      success(function(){
+        $scope.infos = true;
+        $scope.updated_theme_name = theme.name_theme;
+        load_scope_theme();
+      });
+    };
+  load_scope_theme();
+}]);
+
+app.controller('SetQuestions', ['$scope','$http', function($scope,$http){
+  load_scope = function(){
+    $http.get('./php/get_questions.php').
+      success(function(data) {
+        $scope.questions = data;
+      });
   };
+
+  $http.get('./php/get_themes.php').
+    success(function(data) {
+      $scope.themes = data;
+  });
+
+
+  $http.get('./php/get_themes.php').
+  success(function(data) {
+    $scope.themes_filter = data;
+    $scope.themes_filter.push({
+      name_theme: 'Tout les Themes',
+      id_theme: '!'
+    })
+  });
+  
 
   $scope.validation = function(question) {
     $http.post('./php/validate_question.php',{
@@ -398,8 +452,10 @@ app.controller('SetThemes', ['$scope','$http', function($scope,$http){
           'bad_rep3': question.bad_rep3}
       ).
       success(function(){
-        load_scope_theme();
+        load_scope();
+        $scope.infos = true;
+        $scope.updated_question_value = question.value_question;
       });
     };
-  load_scope_theme();
+  load_scope();
 }]);

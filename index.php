@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title ng-bind="'LectorQuizz ' + title">LectorQuizz</title>
+		<title ng-bind="'Kwizybo ' + title">Kwizybo</title>
 		<!-- Bootstrap CSS -->
 		<link href="styles/style.css" rel="stylesheet">
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">

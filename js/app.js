@@ -45,6 +45,16 @@ app.config(function($routeProvider) {
         controller: 'ValidateQuestions',
         templateUrl: 'partials/validation_question.html'
     });
+     $routeProvider.when('/GererQuestions', {
+         title: '- Gestion des Questions',
+        controller: 'SetQuestions',
+        templateUrl: 'partials/set_question.html'
+    });
+    $routeProvider.when('/GererThemes', {
+         title: '- Gestion des Thèmes',
+        controller: 'SetThemes',
+        templateUrl: 'partials/set_themes.html'
+    });
     $routeProvider.otherwise('/Home');
   });
 
