@@ -119,7 +119,7 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
     $scope.randThemes = [];
     for (var i = 0; i < 2; i++ ){
       randt = Math.floor((Math.random() * $scope.themes.length));
-      if($.inArray($scope.themes[randt],$scope.randThemes)){
+      if($.inArray($scope.themes[randt],$scope.randThemes) == -1){
         $scope.randThemes.push($scope.themes[randt]);
       }else{
         i-- ;
@@ -156,7 +156,6 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
     for(var i = 0 ; i < $scope.playings[0].reponses.length; i++){
       $scope.playings[0].reponses[i].rank = Math.random();
     };
-    console.log($scope.playings[0]);
   };
 
   $scope.themeSelect = function(theme_id){
@@ -166,7 +165,6 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
     $scope.playings = [];
     $scope.all_playings = NoQuestionRepeat(theme_id);
     playQuestion(theme_id);
-    console.log($scope.all_playings);
   };
 
   $scope.GetPlayingGames = function(id){
