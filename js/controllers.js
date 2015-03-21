@@ -15,6 +15,12 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
         setAdmin();
       }
     },function(reason){
+      $scope.reason_bad = reason;
+      if($scope.reason_bad == "Mot de passe incorrect"){
+        $scope.bad_login = false;
+      }else{
+        $scope.bad_login = true;
+      };
       $scope.bad_infos = true;
     }); //call login service
 
@@ -178,6 +184,15 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
   };
 
   $scope.PlayRound = function() {
+    $scope.current_game.round += 1;
+    if($scope.current_user.id_user == $scope.current_game.user_id_1){
+       $scope.current_game.current_player = $scope.current_game.user_id_2;
+    }else{
+      $scope.current_game.current_player = $scope.current_game.user_id_1;
+    };
+    if($scope.current_game.round >= (total_round*2)) $scope.current_game.is_finished = true;
+    var toto = gameService.new_turn($scope.current_game);
+
     $scope.scoreRound = 0;
     $scope.falseRep = 0;
     $scope.turn = 0;
@@ -189,12 +204,9 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
     if(turnNum == 3){
       $scope.savedScore[$scope.current_game.round] = $scope.scoreRound / 3;
       $scope.sevedFalseRep[$scope.current_game.round] = $scope.falseRep / 3;
-      $scope.current_game.round += 1;
       if($scope.current_user.id_user == $scope.current_game.user_id_1){
-        $scope.current_game.score_1 +=  $scope.scoreRound;
         $scope.current_game.current_player = $scope.current_game.user_id_2;
       }else{
-        $scope.current_game.score_2 +=  $scope.scoreRound;
         $scope.current_game.current_player = $scope.current_game.user_id_1;
       };
       if($scope.current_game.round >= (total_round*2)) $scope.current_game.is_finished = true;
@@ -233,10 +245,7 @@ app.controller('AddQuestions', ['$scope', '$http', function($scope,$http) {
 }]);
 
 app.controller('SignIn', ['$scope', '$http', function($scope,$http) {
-    $http.get('./php/get_class.php').
-      success(function(data) {
-        $scope.classes_user = data;
-      });
+    
 }]);
 
 app.controller('GameStory', ['$scope', '$http','gameStoryService', function($scope,$http,gameStoryService) {
@@ -263,6 +272,106 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
   $http.get('./php/get_themes.php').
     success(function(data) {
       $scope.themes = data;
+  });
+
+  $scope.is_questions = function(){
+    if($scope.unvalid_questions){
+      return $scope.unvalid_questions.length;
+    }else{
+      return 0;
+    }
+  };
+
+  $scope.validation = function(question) {
+    $http.post('./php/validate_question.php',{
+          'id': question.id_question, 
+          'value': question.value_question,
+          'theme_id': question.theme_id,
+          'good_rep': question.good_rep,
+          'bad_rep1': question.bad_rep1,
+          'bad_rep2': question.bad_rep2,
+          'bad_rep3': question.bad_rep3}
+      ).
+      success(function(){
+        load_scope();
+      });
+    };
+  load_scope();
+}]);
+
+app.controller('AddTheme', ['$scope','$http', function($scope,$http){
+  $scope.infos = false;
+  $scope.bad_infos = false;
+  $scope.succes_add = false;
+
+  $scope.add_theme = function(data){
+    console.log(data);
+    if(data){
+    $http.post('./php/add_themes.php',{
+      'name_theme': data.name_theme,
+      'description_theme': data.description_theme
+    })
+    .success(function(msg){
+      if(msg.success == true){
+        $scope.infos = true;
+        $scope.succes_add = true;
+        $scope.msg = "Thème ajouté avec succès";
+      }else{
+        $scope.infos = true;
+        $scope.bad_infos = true;
+        $scope.msg = msg;
+      };
+    });
+  }else{
+    $scope.infos = true;
+    $scope.bad_infos = true;
+    $scope.msg = "Tout les champs ne sont pas remplis";
+  };
+  };
+}]);
+
+app.controller('AddQuizz', ['$scope','$http', function($scope,$http){
+  $scope.infos = false;
+  $scope.bad_infos = false;
+  $scope.succes_add = false;
+
+  $scope.add_quizz = function(data){
+    console.log(data);
+    if(data){
+    $http.post('./php/add_quizz.php',{
+      'name_quizz': data.name_quizz
+    })
+    .success(function(msg){
+      if(msg.success == true){
+        $scope.infos = true;
+        $scope.succes_add = true;
+        $scope.msg = "Quizz ajouté avec succès. Celui-ci a pour CODE : ";
+        $scope.quizz_code = msg.code_quizz;
+      }else{
+        $scope.infos = true;
+        $scope.bad_infos = true;
+        $scope.msg = msg;
+      };
+    });
+  }else{
+    $scope.infos = true;
+    $scope.bad_infos = true;
+    $scope.msg = "Veuillez entrer un nom pour le quizz";
+  };
+  };
+}]);
+
+app.controller('SetThemes', ['$scope','$http', function($scope,$http){
+  load_scope = function(){
+    $http.get('./php/get_setting_theme.php').
+      success(function(data) {
+        $scope.themes = data;
+      });
+  };
+
+  $http.get('./php/get_quizz.php').
+    success(function(data) {
+      $scope.quizz = data;
   });
 
   $scope.is_questions = function(){

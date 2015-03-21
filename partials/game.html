@@ -21,6 +21,7 @@
 
 	<br/>
 	<div class="well text-center col-md-6 col-md-offset-3" ng-show="viewTheme">
+		<h3  style="margin-top:-10px;">Choisir un thème</h3>
 		<button type="button" ng-repeat="theme in randThemes" ng-click="themeSelect(theme.id_theme)" style="white-space: normal; width:200px; margin:10px;" class="btn btn-default btn-lg">{{theme.name_theme}}</button>
 	</div>
 	<div class="well well-sm text-center col-md-6 col-md-offset-3" ng-show="launched" ng-repeat="question in playings" >

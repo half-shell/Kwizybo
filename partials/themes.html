@@ -1,16 +1,17 @@
 <div class="well col-md-4 col-md-offset-{{4+admin_margin}}">
 	<h3 class="text-center" style="margin-top: -5px">Ajout d'un Thème</h3>
-	<form method="post" action="php/add_themes.php">
-		<div class="form-group">
-				<label>Nom du thème</label>
-				<input class="form-control" type="text" name="theme_name" />
+	<div ng-show="infos" class="alert " ng-class="succes_add ? 'alert-success':'alert-danger'" role="alert">{{msg}}</div>
+	<form role"form">
+		<div class="form-group" ng-class="{'has-error': bad_infos}">
+				<label class="control-label">Nom du thème</label>
+				<input class="form-control" type="text" name="theme_name" ng-model="data.name_theme"/>
  		</div>
- 		<div class="form-group">
-				<label>Description</label>
-				<textarea name="description" class="form-control" rows="5" style="resize: none;"></textarea>
+ 		<div class="form-group" ng-class="{'has-error': bad_infos}">
+				<label class="control-label">Description</label>
+				<textarea name="description" class="form-control" rows="5"  ng-model="data.description_theme" style="resize: none;"></textarea>
  		</div>
   			<p class="text-center">
-  			<button class="btn btn-default" type="submit">Ajouter le Thème</button>
+  			<button class="btn btn-success" ng-click="add_theme(data)">Ajouter le Thème</button>
   			<button class="btn btn-default" type="reset">Effacer</button>
   			</p>
 	</form>

@@ -46,7 +46,15 @@ app.factory('gameService',function($http,$q, $location, sessionService){
 		},
 		new_game:function(id_user,pseudo){
 			var defer = $q.defer();
-			var promise = $http.post('./php/new_game.php',{'id': id_user,'pseudo': pseudo}); //send data to user.php
+			var promise = $http.post('./php/add_new_game.php',{'id': id_user,'pseudo': pseudo}); //send data to user.php
+			promise.then(function(msg){
+				defer.resolve(msg.data);
+			});
+			return defer.promise;
+		},
+		new_turn:function(data){
+			var defer = $q.defer();
+			var promise = $http.post('./php/update_turn_game.php',{'id': data.id_game,'round': data.round,'current_player': data.current_player,'is_finished': data.is_finished}); //send data to user.php
 			promise.then(function(msg){
 				defer.resolve(msg.data);
 			});

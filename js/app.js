@@ -24,15 +24,21 @@ app.config(function($routeProvider) {
     $routeProvider.when('/Inscription', {
          title: '- Inscription',
         controller: 'SignIn',
-        templateUrl: 'partials/sign_in.html'
-    });
-    $routeProvider.when('/Connexion', {
-         title: '- Connexion',
         templateUrl: 'partials/sign_up.html'
     });
+    $routeProvider.when('/Connexion', {
+        title: '- Connexion',
+        templateUrl: 'partials/sign_in.html'
+    });
     $routeProvider.when('/Themes', {
-         title: '- Ajouter un Themes',
+        title: '- Ajouter un Themes',
+        controller: 'AddTheme',
         templateUrl: 'partials/themes.html'
+    });
+    $routeProvider.when('/AjouterQuizz', {
+         title: '- Ajouter un Quizz',
+         controller: 'AddQuizz',
+        templateUrl: 'partials/quizz.html'
     });
     $routeProvider.when('/ValiderQuestions', {
          title: '- Valider des Questions',
@@ -54,6 +60,7 @@ app.run(function($rootScope, $location, loginService){
         }
     });
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
+        
         $rootScope.title = current.$$route.title;
     });
 });

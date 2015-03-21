@@ -17,7 +17,9 @@
 			$result['uid'] = $_SESSION['uid'];
 			print json_encode($result);
 		}else{
-			print "bad_pass";
+			print "Mot de passe incorrect";
 		};
+	}else{
+		print "Identifiant inconnu";
 	};
 ?>
