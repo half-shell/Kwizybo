@@ -16,10 +16,15 @@ app.config(function($routeProvider) {
         controller: 'GameStory',
         templateUrl: 'partials/game_story.html'
     });
+    $routeProvider.when('/Classement', {
+         title: '- Classement',
+        controller: 'Ladder',
+        templateUrl: 'partials/ladder.html'
+    });
     $routeProvider.when('/Questions', {
-         title: '- Ajouter une Questions',
+         title: '- Ajouter une Question',
         controller: 'AddQuestions',
-        templateUrl: 'partials/add_questions.html'
+        templateUrl: 'partials/add_question.html'
     });
     $routeProvider.when('/Inscription', {
          title: '- Inscription',
@@ -31,9 +36,9 @@ app.config(function($routeProvider) {
         templateUrl: 'partials/sign_in.html'
     });
     $routeProvider.when('/Themes', {
-        title: '- Ajouter un Themes',
+        title: '- Ajouter un Thème',
         controller: 'AddTheme',
-        templateUrl: 'partials/add_themes.html'
+        templateUrl: 'partials/add_theme.html'
     });
     $routeProvider.when('/AjouterQuizz', {
          title: '- Ajouter un Quizz',
@@ -43,17 +48,22 @@ app.config(function($routeProvider) {
     $routeProvider.when('/ValiderQuestions', {
          title: '- Valider des Questions',
         controller: 'ValidateQuestions',
-        templateUrl: 'partials/validation_question.html'
+        templateUrl: 'partials/validation_questions.html'
     });
      $routeProvider.when('/GererQuestions', {
          title: '- Gestion des Questions',
         controller: 'SetQuestions',
-        templateUrl: 'partials/set_question.html'
+        templateUrl: 'partials/set_questions.html'
     });
     $routeProvider.when('/GererThemes', {
          title: '- Gestion des Thèmes',
         controller: 'SetThemes',
         templateUrl: 'partials/set_themes.html'
+    });
+    $routeProvider.when('/GererQuizz', {
+         title: '- Gestion des Quizz',
+        controller: 'SetQuizz',
+        templateUrl: 'partials/set_quizz.html'
     });
     $routeProvider.otherwise('/Home');
   });

@@ -6,7 +6,7 @@
         $id =  $request['id'];
         // connect to the database
         // a query get all the records from the users table
-        $sql = "SELECT * FROM games WHERE ((user_id_1 = '$id') OR (user_id_2 = '$id')) AND (is_finished = '1')";
+        $sql = "SELECT * FROM games WHERE ((user_id_1 = '$id') OR (user_id_2 = '$id')) AND (is_finished = '1') ORDER BY id_game DESC LIMIT 10";
 
         $stmt = $dbh->prepare($sql);
         // execute the query

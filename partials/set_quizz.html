@@ -1,0 +1,22 @@
+<div class="container col-md-6 col-md-offset-{{3+admin_margin}}">
+	<div>
+		<div ng-show="infos" class="alert alert-success col-md-4 col-md-offset-4" role="alert">Le quizz : <b> {{updated_quizz_name}} </b> a bien été modifié. </div>
+		<table class="table table-striped table-bordered text-center" ng-hide="quizz_filter == ''">
+			<thead style="background-color: #fdf9eb; color: #2f2f2f;">
+				<tr>
+					<td><h4>Nom du Quizz</h4></td>
+					<td><h4>Code</h4></td>
+					<td><h4>Validation</h4></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="qz in quizz" ng-init="updated_quizz = qz;">
+					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text" ng-model="updated_quizz.name_quizz" rows="2" style="resize: none;"></textarea></td>
+					<td><h3 style="margin-top: 10px;">{{updated_quizz.code_quizz}}</h3></td>
+					<td><button  style="margin-top: 10px;" type="button" class="btn btn-success" ng-click="validation(updated_quizz)">Valider</button></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>

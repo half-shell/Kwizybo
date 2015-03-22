@@ -1,11 +1,10 @@
 <?php
         // set up the connection variables
         include 'connect_db.php';
-
         // connect to the database
 
         // a query get all the records from the users table
-        $sql = "SELECT * FROM themes WHERE playable = '1' AND quizz_id = '1'";
+        $sql = "SELECT id_user, pseudo, score_user FROM users";
 
         // use prepared statements, even if not strictly required is good practice
         $stmt = $dbh->prepare($sql);

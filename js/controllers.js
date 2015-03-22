@@ -81,6 +81,7 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
 }]);
 
 app.controller('Parties', ['$scope', '$http','$filter','gameService', function($scope,$http,$filter,gameService) {
+  $scope.Math=Math;
   total_round = 3;
   $scope.round = 0;
   $scope.score = 0;
@@ -204,11 +205,33 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
     }else{
       $scope.current_game.current_player = $scope.current_game.user_id_1;
     };
-    if($scope.current_game.round >= (total_round*2)) $scope.current_game.is_finished = true;
+    if($scope.current_game.round >= (total_round*2)){
+        $scope.current_game.is_finished = true
+        if($scope.current_game.score_1 > $scope.current_game.score_2){
+          $http.post('./php/update_user_score.php',{
+            'id': $scope.current_game.user_id_1,
+            'score_add': 3
+          });
+        }else if($scope.current_game.score_1 < $scope.current_game.score_2){
+          $http.post('./php/update_user_score.php',{
+            'id': $scope.current_game.user_id_2,
+            'score_add': 3
+          });
+        }else{
+          $http.post('./php/update_user_score.php',{
+            'id': $scope.current_game.user_id_1,
+            'score_add': 1
+          });
+          $http.post('./php/update_user_score.php',{
+            'id': $scope.current_game.user_id_2,
+            'score_add': 1
+          });
+        };
+      };
     var toto = gameService.new_turn($scope.current_game);
     toto.then(function(data){
       $scope.GetNotifGames($scope.current_user.id_user);
-       $scope.GetPlayingGames($scope.current_user.id_user);
+      $scope.GetPlayingGames($scope.current_user.id_user);
     })
 
     $scope.scoreRound = 0;
@@ -224,11 +247,37 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
       $scope.sevedFalseRep[$scope.current_game.round] = $scope.falseRep / 3;
 
       if($scope.current_user.id_user == $scope.current_game.user_id_1){
+        $scope.current_game.score_1 +=  $scope.scoreRound;
         $scope.current_game.current_player = $scope.current_game.user_id_2;
       }else{
+        $scope.current_game.score_2 +=  $scope.scoreRound;
         $scope.current_game.current_player = $scope.current_game.user_id_1;
       };
-      if($scope.current_game.round >= (total_round*2)) $scope.current_game.is_finished = true;
+
+      if($scope.current_game.round >= (total_round*2)){
+        $scope.current_game.is_finished = true
+        if($scope.current_game.score_1 > $scope.current_game.score_2){
+          $http.post('./php/update_user_score.php',{
+            'id': $scope.current_game.user_id_1,
+            'score_add': 3
+          });
+        }else if($scope.current_game.score_1 < $scope.current_game.score_2){
+          $http.post('./php/update_user_score.php',{
+            'id': $scope.current_game.user_id_2,
+            'score_add': 3
+          });
+        }else{
+          $http.post('./php/update_user_score.php',{
+            'id': $scope.current_game.user_id_1,
+            'score_add': 1
+          });
+          $http.post('./php/update_user_score.php',{
+            'id': $scope.current_game.user_id_2,
+            'score_add': 1
+          });
+        };
+      };
+
       var toto = gameService.update_current_game($scope.current_game);
       toto.then(function(data){
         $scope.launched = false;
@@ -312,6 +361,10 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
           'bad_rep3': question.bad_rep3}
       ).
       success(function(){
+        $http.post('./php/update_user_score.php',{
+          'id': question.user_id,
+          'score_add': 1
+        });
         load_scope();
       });
     };
@@ -455,5 +508,38 @@ app.controller('SetQuestions', ['$scope','$http', function($scope,$http){
         $scope.updated_question_value = question.value_question;
       });
     };
+  load_scope();
+}]);
+
+app.controller('SetQuizz', ['$scope','$http', function($scope,$http){
+  load_scope = function(){
+    $http.get('./php/get_quizz.php').
+      success(function(data) {
+        $scope.quizz = data;
+      });
+  };
+
+  $scope.validation = function(quizz) {
+    $http.post('./php/update_quizz.php',{
+          'id': quizz.id_quizz, 
+          'name_quizz': quizz.name_quizz
+        }
+      ).
+      success(function(){
+        load_scope();
+        $scope.infos = true;
+        $scope.updated_quizz_name = quizz.name_quizz;
+      });
+    };
+  load_scope();
+}]);
+
+app.controller('Ladder', ['$scope','$http', function($scope,$http){
+  load_scope = function(){
+    $http.get('./php/get_ladder.php').
+      success(function(data) {
+        $scope.users = data;
+      });
+  };
   load_scope();
 }]);

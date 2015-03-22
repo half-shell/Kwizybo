@@ -10,7 +10,10 @@
 			<div class="col-md-6">
 				<div class="btn-group btn-group-lg" style="margin-top:15px;">
 				<button  class="btn disabled">{{playing_game.score_1}}</button>
-				<button type="button" ng-click="ContinueGame(playing_game.id_game)" ng-class="current_user.id_user != playing_game.current_player ? 'disabled btn-warning' : 'btn-success'"class="btn " >Manche Suivante</button>
+				<button type="button" ng-click="ContinueGame(playing_game.id_game)" ng-class="current_user.id_user != playing_game.current_player ? 'disabled btn-warning' : 'btn-success'"class="btn " >
+				<b ng-show="current_user.id_user != playing_game.current_player">En Attente</b>
+				<b ng-show="current_user.id_user == playing_game.current_player">Manche {{Math.floor(playing_game.round/2)+1}}</b>
+				</button>
 				<button class="btn disabled">{{playing_game.score_2}}</button>
 				</div>
 			</div>
