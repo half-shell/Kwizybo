@@ -19,7 +19,7 @@ app.config(function($routeProvider) {
     $routeProvider.when('/Questions', {
          title: '- Ajouter une Questions',
         controller: 'AddQuestions',
-        templateUrl: 'partials/question_add.html'
+        templateUrl: 'partials/add_questions.html'
     });
     $routeProvider.when('/Inscription', {
          title: '- Inscription',
@@ -33,12 +33,12 @@ app.config(function($routeProvider) {
     $routeProvider.when('/Themes', {
         title: '- Ajouter un Themes',
         controller: 'AddTheme',
-        templateUrl: 'partials/themes.html'
+        templateUrl: 'partials/add_themes.html'
     });
     $routeProvider.when('/AjouterQuizz', {
          title: '- Ajouter un Quizz',
          controller: 'AddQuizz',
-        templateUrl: 'partials/quizz.html'
+        templateUrl: 'partials/add_quizz.html'
     });
     $routeProvider.when('/ValiderQuestions', {
          title: '- Valider des Questions',
@@ -59,18 +59,21 @@ app.config(function($routeProvider) {
   });
 
 app.run(function($rootScope, $location, loginService){
-    var routespermission=['/Game','/Questions','/Themes','/ValiderQuestions','/Historique'];  //route that require login
+    var routespermission = ['/Game','/Questions','/Themes','/ValiderQuestions','/Historique','/AjouterQuizz','/GererQuestions','/GererThemes'];  //route that require login
+    var adminpermission = ['/Themes','/ValiderQuestions','/AjouterQuizz','/GererQuestions','/GererThemes'];
     $rootScope.$on('$routeChangeStart', function(){
-        if( routespermission.indexOf($location.path()) !=-1)
+        if( routespermission.indexOf($location.path()) != -1)
         {
-            var connected=loginService.islogged();
-            connected.then(function(msg){
+            var connected = loginService.islogged();
+            connected.then(function(msg){ 
                 if(msg.data == 'not logged') $location.path('/Connexion');
+                if(adminpermission.indexOf($location.path()) != -1){
+                    if(msg.data.admin != 1) $location.path('/Home');
+                }; 
             });
         }
     });
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
-        
         $rootScope.title = current.$$route.title;
     });
 });
