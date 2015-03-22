@@ -28,7 +28,7 @@ app.config(function($routeProvider) {
     });
     $routeProvider.when('/Inscription', {
          title: '- Inscription',
-        controller: 'SignIn',
+        controller: 'SignUp',
         templateUrl: 'partials/sign_up.html'
     });
     $routeProvider.when('/Connexion', {

@@ -1,21 +1,32 @@
 <div class="well col-md-4 col-md-offset-{{4+ admin_margin}}">
 	<h3 class="text-center" style="margin-top: -5px">Inscription</h3>
-	<form method="post" action="php/add_user.php">
-		<div class="form-group">
-   			<label>Identifiant</label>
-   			<input class="form-control" type="text" name="pseudo"/>
+   <div ng-show="infos" class="alert " ng-class="success_1 ? 'alert-success':'alert-danger'" role="alert">{{msg}}</div>
+	<form role="form" ng-show="!success_1">
+		<div class="form-group" ng-class="{'has-error': bad_infos}">
+   			<label class="control-label">Identifiant</label>
+   			<input class="form-control" type="text" ng-model="data.pseudo"/>
  		</div>
- 		<div class="form-group">
-   			<label>Mot de passe</label>
-   			<input class="form-control" type="password" name="password" />
+ 		<div class="form-group" ng-class="{'has-error': bad_infos}">
+   			<label class="control-label">Mot de passe</label>
+   			<input class="form-control" type="password" ng-model="data.password" />
  		</div>
- 		<div class="form-group">
-   			<label>Confirmation du Mot de Passe</label>
-   			<input class="form-control" type="password" name="password_confirmation" />
+ 		<div class="form-group" ng-class="{'has-error': bad_infos}">
+   			<label class="control-label">Confirmation du Mot de Passe</label>
+   			<input class="form-control" type="password" ng-model="data.password_confirmation" />
  		</div>
    	<p class="text-center">
-   		<button class="btn btn-success" type="submit">Continuer</button>
+   		<button class="btn btn-success" ng-click="add_user(data)">Continuer</button>
    		<button class="btn btn-default" type="reset">Effacer</button>
    	</p>
 	</form>
+   <form role="form" ng-show="success_1 && !success_2">
+      <div class="form-group" ng-class="{'has-error': bad_infos}">
+            <label class="control-label">Ajout d'un quizz</label>
+            <input class="form-control" type="text" ng-model="data1.code_quizz"/>
+      </div>
+      <p class="text-center">
+         <button class="btn btn-success" ng-click="add_quizz_code(data1)">Continuer</button>
+         <button class="btn btn-default" type="reset">Effacer</button>
+      </p>
+   </form>
 </div>
