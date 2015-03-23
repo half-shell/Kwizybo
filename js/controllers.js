@@ -58,8 +58,8 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
         success(function(data) {
           $scope.questions_to_validate = data.length;
         });
-    $scope.admin = true;
-    $scope.admin_margin = 1;
+    $scope.admin = false;
+    $scope.admin_margin = 0;
   };
 
   $scope.active = function(path) {
@@ -90,8 +90,10 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
   $scope.launched = false;
   $scope.viewTheme = false;
   $scope.questions = [];
-
-  $http.get('./php/get_valid_themes.php').
+  console.log($scope.current_user.quizz_id);
+  $http.post('./php/get_valid_themes.php',{
+    'quizz_id': $scope.current_user.quizz_id
+  }).
       success(function(data) {
         $scope.themes = data;
       });
@@ -210,12 +212,24 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
         if($scope.current_game.score_1 > $scope.current_game.score_2){
           $http.post('./php/update_user_score.php',{
             'id': $scope.current_game.user_id_1,
-            'score_add': 3
+            'score_add': 3,
+            'victories': 1
+          });
+           $http.post('./php/update_user_score.php',{
+            'id': $scope.current_game.user_id_2,
+            'score_add': 0,
+            'defeats': 1
           });
         }else if($scope.current_game.score_1 < $scope.current_game.score_2){
           $http.post('./php/update_user_score.php',{
             'id': $scope.current_game.user_id_2,
-            'score_add': 3
+            'score_add': 3,
+            'victories': 1
+          });
+          $http.post('./php/update_user_score.php',{
+            'id': $scope.current_game.user_id_1,
+            'score_add': 0,
+            'defeats': 1
           });
         }else{
           $http.post('./php/update_user_score.php',{
@@ -318,6 +332,7 @@ app.controller('GameStory', ['$scope', '$http','gameStoryService', function($sco
     var toto = gameStoryService.get_finished_games(id);
       toto.then(function(data) {
         $scope.finished_games = data;
+        $scope.len_finish = $scope.finished_games.length;
       });
     };
     if($scope.is_logged) $scope.GetFinishedGames($scope.current_user.id_user);
@@ -357,11 +372,12 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
           'bad_rep3': question.bad_rep3}
       ).
       success(function(){
+        load_scope();
         $http.post('./php/update_user_score.php',{
           'id': question.user_id,
-          'score_add': 1
+          'score_add': 1,
+          'questions_added': 1
         });
-        load_scope();
       });
     };
   load_scope();
@@ -399,7 +415,7 @@ app.controller('AddTheme', ['$scope','$http', function($scope,$http){
   }else{
     $scope.infos = true;
     $scope.bad_infos = true;
-    $scope.msg = "Tout les champs ne sont pas remplis";
+    $scope.msg = "Tous les champs ne sont pas remplis";
   };
   };
 }]);
@@ -482,7 +498,7 @@ app.controller('SetQuestions', ['$scope','$http', function($scope,$http){
   success(function(data) {
     $scope.themes_filter = data;
     $scope.themes_filter.push({
-      name_theme: 'Tout les Themes',
+      name_theme: 'Tous les thèmes',
       id_theme: '!'
     })
   });
@@ -583,7 +599,7 @@ app.controller('SignUp', ['$scope','$http', function($scope,$http){
         $scope.infos = true;
         $scope.success_2 = true;
         $scope.bad_infos = false;
-        $scope.msg = "Inscription Réussie";
+        $scope.msg = "Inscription au quizz réussie.";
         console.log(msg);
       }else{
         $scope.infos = true;
@@ -598,3 +614,96 @@ app.controller('SignUp', ['$scope','$http', function($scope,$http){
   };
   };
 }]);
+
+app.controller('JoinQuizz', ['$scope','$http', function($scope,$http){
+  $scope.infos = false;
+  $scope.bad_infos = false;
+  $scope.succes = false;
+
+   $scope.add_quizz_code = function(data){
+    if(data){
+    $http.post('./php/add_user_quizz.php',{
+      'code_quizz': data.code_quizz,
+      'pseudo': $scope.current_user.pseudo
+    })
+    .success(function(msg){
+      if(msg.success == true){
+        $scope.infos = true;
+        $scope.success = true;
+        $scope.bad_infos = false;
+        $scope.msg = "Inscription au quizz réussie.";
+        console.log(msg);
+      }else{
+        $scope.infos = true;
+        $scope.bad_infos = true;
+        $scope.msg = msg;
+      };
+    });
+  }else{
+    $scope.infos = true;
+    $scope.bad_infos = true;
+    $scope.msg = "Veuillez entrer un code";
+  };
+  };
+}]);
+
+app.controller('SetUsers', ['$scope','$http', function($scope,$http){
+  load_scope = function(){
+    $http.post('./php/get_users.php',{
+      'quizz_id': $scope.current_user.quizz_id
+    }).
+      success(function(data) {
+        $scope.users = data;
+      });
+  };
+
+  $scope.validation = function(users){
+    $http.post('./php/update_pass_user.php',{
+          'id': users.id_user, 
+          'password': '1234'
+        }
+      ).
+      success(function(){
+        load_scope();
+        $scope.infos = true;
+        $scope.updated_user_pseudo = users.pseudo;
+      });
+    };
+  load_scope();
+}]);
+
+app.controller('MyAccount', ['$scope','$http', function($scope,$http){
+  $scope.infos = false;
+  $scope.bad_infos = false;
+
+  $scope.change_password = function(user){
+    if(user){
+      if(CryptoJS.MD5(user.old_pass) == $scope.current_user.password){
+        if(user.new_pass == user.new_pass_conf){
+          $http.post('./php/update_pass_user.php',{
+                'id': $scope.current_user.id_user, 
+                'password': user.new_pass
+              }
+            ).
+            success(function(){
+              $scope.infos = true;
+              $scope.bad_infos = false;
+              $scope.msg = "Changement de mot de passe avec succès";
+            });
+        }else{
+          $scope.infos = true;
+          $scope.bad_infos = true;
+          $scope.msg = "La confirmation du mot de passe ne correspond pas.";
+        };
+      }else{
+        $scope.infos = true;
+        $scope.bad_infos = true;
+        $scope.msg = "L'ancien mot de passe ne correspond pas.";
+      };
+    }else{
+        $scope.infos = true;
+        $scope.bad_infos = true;
+        $scope.msg = "Tous les champs ne sont pas remplis";
+    };
+  };
+}]);  

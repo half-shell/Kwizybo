@@ -65,6 +65,21 @@ app.config(function($routeProvider) {
         controller: 'SetQuizz',
         templateUrl: 'partials/set_quizz.html'
     });
+    $routeProvider.when('/RejoindreQuizz', {
+         title: '- Rejoindre un Quizz',
+        controller: 'JoinQuizz',
+        templateUrl: 'partials/join_quizz.html'
+    });
+     $routeProvider.when('/GererMembres', {
+         title: '- Gestion des Membres',
+        controller: 'SetUsers',
+        templateUrl: 'partials/set_users.html'
+    });
+    $routeProvider.when('/MonCompte', {
+        title: '- Mon Compte',
+        controller: 'MyAccount',
+        templateUrl: 'partials/my_account.html'
+    });
     $routeProvider.otherwise('/Home');
   });
 

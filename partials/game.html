@@ -1,8 +1,11 @@
 <div class="container col-md-8 col-md-offset-{{2+admin_margin}}">
-	<div ng-show="viewTheme == false && launched == false && round < 4" class="text-center well  col-md-6 col-md-offset-3" >
+	<div ng-show="viewTheme == false && launched == false && round < 4 && current_user.quizz_id != '0'" class="text-center well  col-md-6 col-md-offset-3" >
 		<button type="button" ng-class="{disabled: playing_games.length >= 5}" class="btn btn-success btn-lg" ng-show="round == 0" ng-click='NewGame(current_user.id_user,current_user.pseudo)'>Nouvelle Partie </button>
 	</div>
-
+	<div class="well text-center col-md-8 col-md-offset-2" ng-show="current_user.quizz_id == '0'">
+		<h3  style="margin-top:-10px;">Veuillez vous inscrire à un quizz avant de jouer</h3>
+		<a type="button" class="btn btn-success">Ajout de quizz</a>
+	</div>
 	<div ng-show="viewTheme == false && launched == false && playing_games.length > 0" class="text-center well  col-md-12" ng->
 		<h3  style="margin-top:-10px;">Parties En Cours</h3>
 		<div ng-repeat="playing_game in playing_games track by playing_game.id_game">

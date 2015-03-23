@@ -1,0 +1,40 @@
+<div class="container col-md-8 col-md-offset-{{2+admin_margin}}">
+	<div class=" col-md-4 col-md-offset-1">
+	<div ng-show="infos" class="alert " ng-class="bad_infos ? 'alert-danger':'alert-success'" role="alert">{{msg}}<h3 class="text-center" style="margin-top: 7px; margin-bottom: 3px" ng-show="bad_infos">{{quizz_code}}</h3></div>
+ 	<div class="panel panel-warning">
+  		<div class="panel-heading"><h3 class="panel-title">Mon Compte</h3></div>
+  		<div class="panel-body">
+ 		<p><h4>Pseudo : {{current_user.pseudo}}</h4></p>
+ 		</div>
+ 		<div style="margin: 10px">
+ 		<form role="form">
+ 			<legend>Modifier son mot de passe</legend>
+ 			<div class="form-group">
+ 				<label for="">Mot de passe actuel</label>
+ 				<input type="password" class="form-control" ng-model="user_updated.old_pass">
+ 			</div>
+ 			<div class="form-group">
+ 				<label for="">Nouveau mot de passe</label>
+ 				<input type="password" class="form-control" ng-model="user_updated.new_pass">
+ 			</div>
+ 			<div class="form-group">
+ 				<label for="">Confirmation du mot de passe</label>
+ 				<input type="password" class="form-control" ng-model="user_updated.new_pass_conf">
+ 			</div>
+ 			<button class="btn btn-success" ng-click="change_password(user_updated)">Modifier</button>
+ 		</form>
+ 		</div>
+ 	</div>
+ 	</div>
+ 	<div class=" col-md-4 col-md-offset-2">
+ 	<div class="panel panel-warning">
+  		<div class="panel-heading"><h3 class="panel-title">Statistiques</h3></div>
+  		<div class="panel-body"> 
+ 		<p><h4>Score : {{current_user.score_user}}</h4></p>
+ 		<p><h4>Parties Gagnées : {{current_user.victories}} </h4></p>
+ 		<p><h4>Parties Perdues : {{current_user.defeats}} </h4></p>
+ 		<p><h4>Questions Ajoutées : {{current_user.questions_added}}</h4></p>
+ 		</div>
+ 	</div>
+ 	</div>
+</div>

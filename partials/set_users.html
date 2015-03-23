@@ -1,0 +1,20 @@
+<div class="container col-md-6 col-md-offset-{{3+admin_margin}}">
+	<div>
+		<div ng-show="infos" class="alert alert-success col-md-6 col-md-offset-3" role="alert">Le membre : <b> {{updated_user_pseudo}} </b> a bien été modifié.<br/>Son mot de passe est désormais : <b>1234</b> </div>
+		<table class="table table-striped table-bordered text-center" ng-hide="quizz_filter == ''">
+			<thead style="background-color: #fdf9eb; color: #2f2f2f;">
+				<tr>
+					<td><h4>Pseudo</h4></td>
+					<td><h5>Attention : ce bouton réinitialise le mot de passe du membre.</h5></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="user in users">
+					<td><h3 style="margin-top: 10px;">{{user.pseudo}}</h3></td>
+					<td><button  style="margin-top: 10px;" type="button" class="btn btn-warning" ng-click="validation(user)">Réinitialiser le mot de passe</button></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+</div>

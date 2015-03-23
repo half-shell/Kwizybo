@@ -18,6 +18,7 @@
 		<div ng-include="'partials/navigation.html'"></div>
 		<div ng-view></div>
 
+		<script src="js/md5.js"></script> 
 		<!-- Application-->
 		<script src="js/app.js"></script> 
 		<script src="js/controllers.js"></script>
