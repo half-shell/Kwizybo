@@ -84,7 +84,7 @@ app.config(function($routeProvider) {
   });
 
 app.run(function($rootScope, $location, loginService){
-    var routespermission = ['/Classement','/MonCompte','/Game','/AjouterQuestions','/Historique'];  //route that require login
+    var routespermission = ['/RejoindreQuizz','/Classement','/MonCompte','/Game','/AjouterQuestions','/Historique'];  //route that require login
     var adminpermission = ['/AjouterQuizz','/Themes','/ValiderQuestions','/GererQuizz','/GererMembres','/GererQuestions','/GererThemes'];
     var ifloggednopermit = ['/Connexion','/Inscription'];
     $rootScope.$on('$routeChangeStart', function(){

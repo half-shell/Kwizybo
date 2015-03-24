@@ -1,10 +1,15 @@
 <div class="container col-md-8 col-md-offset-{{2+admin_margin}}">
-	<div ng-show="viewTheme == false && launched == false && button_end_game == false && round < 4 && current_user.quizz_id != '0'" class="text-center well  col-md-6 col-md-offset-3" >
+	
+	<div ng-show="viewTheme == false && launched == false && button_end_game == false && round < 4 && current_user.quizz_id != undefined && themes_len >= 2" class="text-center well  col-md-6 col-md-offset-3" >
 		<button type="button" ng-class="{disabled: playing_games.length >= 5}" class="btn btn-success btn-lg" ng-show="round == 0" ng-click='NewGame(current_user.id_user,current_user.pseudo,current_user.quizz_id)'>Nouvelle Partie </button>
 	</div>
-	<div class="well text-center col-md-8 col-md-offset-2" ng-show="current_user.quizz_id == '0'">
+	<div class="well text-center col-md-8 col-md-offset-2" ng-show="current_user.quizz_id == undefined">
 		<h3  style="margin-top:-10px;">Veuillez vous inscrire à un quizz avant de jouer</h3>
-		<a type="button" class="btn btn-success">Ajout de quizz</a>
+		<a type="button" href="#/RejoindreQuizz" class="btn btn-success">Rejoindre un quizz</a>
+	</div>
+	<div class="well text-center col-md-8 col-md-offset-2" ng-show="current_user.quizz_id != undefined && themes_len < 2">
+		<h3  style="margin-top:-10px;">Il n'y a pas encore assez de questions pour jouer. Veuillez en ajouter.</h3>
+		<a type="button" href="#/AjouterQuestions" class="btn btn-success">Ajouter une question</a>
 	</div>
 	<div ng-show="viewTheme == false && launched == false && button_end_game == false && playing_games.length > 0" class="text-center well  col-md-12" ng->
 		<h3  style="margin-top:-10px;">Parties En Cours</h3>

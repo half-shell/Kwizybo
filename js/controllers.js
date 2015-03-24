@@ -73,7 +73,6 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
     toto.then(function(data) {
         new_data = $filter('exact')(data,{current_player: id.toString()});
         $scope.notif = new_data.length;
-        console.log(id.toString());
       });
   };
   
@@ -97,6 +96,7 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
   }).
       success(function(data) {
         $scope.themes = data;
+        $scope.themes_len = data.length;
       });
 
   $http.get('./php/get_questions.php').
@@ -177,7 +177,6 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
         $scope.playing_games = data;
         for (var i = data.length - 1; i >= 0; i--) {
           if(data[i].round >= (total_round*2)){
-            console.log(data[i].id_game);
             $scope.ContinueGame(data[i].id_game);
           }
         };
