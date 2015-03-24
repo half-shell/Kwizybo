@@ -323,10 +323,47 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
 
 app.controller('AddQuestions', ['$scope', '$http', function($scope,$http) {
   $scope.is_connected();
-    $http.get('./php/get_themes.php').
+
+  $http.post('./php/get_themes.php',{
+    'quizz_id': $scope.current_user.quizz_id
+  }).
       success(function(data) {
         $scope.themes = data;
       });
+
+  $scope.infos = false;
+  $scope.bad_infos = false;
+  $scope.succes_add = false;
+
+  $scope.add_question = function(data){
+    if(data){
+    $http.post('./php/add_question.php',{
+      'theme_id': data.theme_id,
+      'value': data.value,
+      'good_rep': data.good_rep, 
+      'bad_rep1': data.bad_rep1,
+      'bad_rep2': data.bad_rep2,
+      'bad_rep3': data.bad_rep3
+    })
+    .success(function(msg){
+      if(msg.success == true){
+        $scope.infos = true;
+        $scope.data = {};
+        $scope.succes_add = true;
+        $scope.bad_infos = false;
+        $scope.msg = "Question ajouté avec succès";
+      }else{
+        $scope.infos = true;
+        $scope.bad_infos = true;
+        $scope.msg = msg;
+      };
+    });
+  }else{
+    $scope.infos = true;
+    $scope.bad_infos = true;
+    $scope.msg = "Tous les champs ne sont pas remplis";
+  };
+  };
 }]);
 
 app.controller('GameStory', ['$scope', '$http','gameStoryService', function($scope,$http,gameStoryService) {
@@ -352,10 +389,12 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
       });
   };
 
-  $http.get('./php/get_themes.php').
-    success(function(data) {
-      $scope.themes = data;
-  });
+  $http.post('./php/get_themes.php',{
+    'quizz_id': $scope.current_user.quizz_id
+  }).
+      success(function(data) {
+        $scope.themes = data;
+      });
 
   $scope.is_questions = function(){
     if($scope.unvalid_questions){
@@ -408,6 +447,7 @@ app.controller('AddTheme', ['$scope','$http', function($scope,$http){
     .success(function(msg){
       if(msg.success == true){
         $scope.infos = true;
+        $scope.data = {};
         $scope.succes_add = true;
         $scope.bad_infos = false;
         $scope.msg = "Thème ajouté avec succès";
@@ -441,6 +481,7 @@ app.controller('AddQuizz', ['$scope','$http', function($scope,$http){
         $scope.infos = true;
         $scope.succes_add = true;
         $scope.bad_infos = false;
+        $scope.data = {};
         $scope.msg = "Quizz ajouté avec succès. Celui-ci a pour CODE : ";
         $scope.quizz_code = msg.code_quizz;
       }else{
@@ -496,20 +537,24 @@ app.controller('SetQuestions', ['$scope','$http', function($scope,$http){
       });
   };
 
-  $http.get('./php/get_themes.php').
-    success(function(data) {
-      $scope.themes = data;
-  });
+  $http.post('./php/get_themes.php',{
+    'quizz_id': $scope.current_user.quizz_id
+  }).
+      success(function(data) {
+        $scope.themes = data;
+      });
 
-
-  $http.get('./php/get_themes.php').
-  success(function(data) {
-    $scope.themes_filter = data;
-    $scope.themes_filter.push({
-      name_theme: 'Tous les thèmes',
-      id_theme: '!'
-    })
-  });
+  $http.post('./php/get_themes.php',{
+    'quizz_id': $scope.current_user.quizz_id
+  }).
+      success(function(data) {
+        $scope.themes_filter = data;
+        $scope.themes_filter.push({
+          name_theme: 'Tous les thèmes',
+          id_theme: '!'
+        })
+      });
+ 
   
 
   $scope.validation = function(question) {
@@ -568,8 +613,6 @@ app.controller('Ladder', ['$scope','$http', function($scope,$http){
   load_scope();
 }]);
 
-app.controller('SignIn', ['$scope','$http', function($scope,$http){
-}]);
 
 app.controller('SignUp', ['$scope','$http', function($scope,$http){
   $scope.infos = false;
@@ -589,6 +632,7 @@ app.controller('SignUp', ['$scope','$http', function($scope,$http){
         $scope.infos = true;
         $scope.success_1 = true;
         $scope.bad_infos = false;
+        $scope.data = {};
         $scope.msg = "Inscription Réussie";
       }else{
         $scope.infos = true;
@@ -614,6 +658,7 @@ app.controller('SignUp', ['$scope','$http', function($scope,$http){
         $scope.infos = true;
         $scope.success_2 = true;
         $scope.bad_infos = false;
+        $scope.data = {};
         $scope.msg = "Inscription au quizz réussie.";
       }else{
         $scope.infos = true;
@@ -704,7 +749,7 @@ app.controller('MyAccount', ['$scope','$http', function($scope,$http){
             success(function(){
               $scope.infos = true;
               $scope.bad_infos = false;
-              $scope.msg = "Changement de mot de passe avec succès";
+              $scope.msg = "Changement de mot de passe avec succès.";
             });
         }else{
           $scope.infos = true;

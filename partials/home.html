@@ -2,10 +2,10 @@
 	<div class="col-md-8 col-md-offset-{{2+admin_margin}}">
 
   		<h1>Bienvenue sur Kwizybo !</h1>
- 		<p style="font-size: 18px" ng-hide="is_logged">&nbsp&nbspConnectez vous pour jouer à des quizz en plusieurs manches avec vos camarades et vos amis ... 
+ 		<p style="font-size: 18px" ng-hide="is_logged">&nbsp&nbspInscrivez ou connectez vous pour jouer à des quizz en plusieurs manches avec vos camarades et vos amis.
  		Gagnez des parties et ajoutez des questions aux quizz pour gagner des 
  		points et montrer à tout le monde que vous êtes le meilleur.</p>
-    <p style="font-size: 18px" ng-show="is_logged">&nbsp&nbspJouer à des quizz en plusieurs manches avec vos camarades et vos amis ... 
+    <p style="font-size: 18px" ng-show="is_logged">&nbsp&nbspDès à présent, comme vous êtes connecté, vous pouvez jouer à des quizz en plusieurs manches avec vos camarades et vos amis. 
     Gagnez des parties et ajoutez des questions aux quizz pour gagner des points et montrer à tout le monde que vous êtes le meilleur.</p>
 
  	</div>
@@ -22,11 +22,11 @@
 	<div class="col-md-8 col-md-offset-{{2+admin_margin}}">
 
   		<h1 style="color: #009d27">Fonctionnement</h1>
-  		<div class="well col-md-3 col-md-offset-1" style="min-heigth: 500px">
+  		<div class="well col-md-3 col-md-offset-1" style="min-heigth: 500px" ng-hide="is_logged">
   			<h3 style="margin-top: 0px; color: #009d27"><span class="glyphicon glyphicon-log-in">&nbspInscrivez vous</h3>
-  			<p style="font-size: 18px">&nbsp&nbspInscrivez vous et rejoignez un quizz en entrant le code donné par votre prof.</p>
+  			<p style="font-size: 18px">&nbsp&nbspInscrivez vous et rejoignez un quizz en entrant le code donné par votre professeur ou celui qui administre l'activité.</p>
   		</div>
- 		<div class="well col-md-3 col-md-offset-1" style="min-heigth: 500px">
+      <div class="well col-md-3 col-md-offset-1" style="min-heigth: 500px">
   			<h3 style="margin-top: 0px; color: #009d27"><span class="glyphicon glyphicon-pencil">&nbspAjoutez des Questions</h3>
   			<p style="font-size: 18px">&nbsp&nbspAjoutez des questions aux différents thèmes. Si votre question est validée par un administrateur, vous gagnez des points.</p>
   		</div>
@@ -34,7 +34,10 @@
   			<h3 style="margin-top: 0px; color: #009d27"><span class="glyphicon glyphicon-play">&nbspJouez avec vos amis</h3>
   			<p style="font-size: 18px">&nbsp&nbspJouez des parties en 3 manches. Remportez des parties afin de gagner des points et ainsi monter dans le classement.</p>
   		</div>
-
+      <div class="well col-md-3 col-md-offset-1" style="min-heigth: 500px" ng-show="is_logged">
+        <h3 style="margin-top: 0px; color: #009d27"><span class="glyphicon glyphicon-star">&nbspMontez dans le classement</h3>
+        <p style="font-size: 18px">&nbsp&nbspUne question validée par un administrateur vous rapporte <b>1</b> point, une partie gagnée vous donne <b>3</b> points et une partie nulle <b>1</b> point.</p>
+      </div>
 
  	</div>
 </div>

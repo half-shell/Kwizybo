@@ -2,6 +2,7 @@
         include 'connect_db.php';
         $postdata = file_get_contents("php://input");
         $request = json_decode($postdata, TRUE);
+        
         $name = htmlspecialchars($request['name_theme']);
         $description = htmlspecialchars($request['description_theme']);
         $quizz_id = htmlspecialchars($request['quizz_id']);

@@ -12,7 +12,7 @@
 					<button type="button" class="btn btn-default disabled">
 						<b ng-show="finished_game.score_1 > finished_game.score_2">Vainqueur : {{finished_game.user_name_1}}</b>
 						<b ng-show="finished_game.score_1 == finished_game.score_2">Partie Nulle</b>
-						<b ng-show="finished_game.score_1 < finished_game.score_2">Vainqueur : {{finished_game.user_name_1}}</b>
+						<b ng-show="finished_game.score_1 < finished_game.score_2">Vainqueur : {{finished_game.user_name_2}}</b>
 					</button>
 					<button class="btn disabled" ng-class="finished_game.score_1 < finished_game.score_2 ? 'btn-success' : finished_game.score_1 > 	finished_game.score_2 ? 'btn-danger' : 'btn-warning'">{{finished_game.score_2}}</button>
 				</div>

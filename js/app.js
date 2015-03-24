@@ -21,7 +21,7 @@ app.config(function($routeProvider) {
         controller: 'Ladder',
         templateUrl: 'partials/ladder.html'
     });
-    $routeProvider.when('/Questions', {
+    $routeProvider.when('/AjouterQuestions', {
          title: '- Proposer une Question',
         controller: 'AddQuestions',
         templateUrl: 'partials/add_question.html'
@@ -33,7 +33,6 @@ app.config(function($routeProvider) {
     });
     $routeProvider.when('/Connexion', {
         title: '- Connexion',
-        controller: 'SignIn',
         templateUrl: 'partials/sign_in.html'
     });
     $routeProvider.when('/Themes', {
@@ -85,8 +84,9 @@ app.config(function($routeProvider) {
   });
 
 app.run(function($rootScope, $location, loginService){
-    var routespermission = ['/Game','/Questions','/Themes','/ValiderQuestions','/Historique','/AjouterQuizz','/GererQuestions','/GererThemes'];  //route that require login
-    var adminpermission = ['/Themes','/ValiderQuestions','/AjouterQuizz','/GererQuestions','/GererThemes'];
+    var routespermission = ['/Classement','/MonCompte','/Game','/AjouterQuestions','/Historique'];  //route that require login
+    var adminpermission = ['/AjouterQuizz','/Themes','/ValiderQuestions','/GererQuizz','/GererMembres','/GererQuestions','/GererThemes'];
+    var ifloggednopermit = ['/Connexion','/Inscription'];
     $rootScope.$on('$routeChangeStart', function(){
         if( routespermission.indexOf($location.path()) != -1)
         {
@@ -97,7 +97,13 @@ app.run(function($rootScope, $location, loginService){
                     if(msg.data.admin != 1) $location.path('/Home');
                 }; 
             });
-        }
+        };
+        if(ifloggednopermit.indexOf($location.path()) != -1){
+          var connected = loginService.islogged();
+            connected.then(function(msg){ 
+                if(msg.data != 'not logged') $location.path('/Home');
+            });
+        };
     });
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
         $rootScope.title = current.$$route.title;
