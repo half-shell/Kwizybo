@@ -92,7 +92,6 @@ app.run(function($rootScope, $location, loginService){
         {
             var connected = loginService.islogged();
             connected.success(function(msg){
-             console.log(msg.admin); 
                 if(msg == 'not logged') $location.path('/Connexion'); 
             });
         };

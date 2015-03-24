@@ -175,17 +175,38 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
     var toto = gameService.get_playing_games(id);
     toto.then(function(data) {
         $scope.playing_games = data;
-        for (var i = data.length - 1; i >= 0; i--) {
-          if(data[i].round >= (total_round*2)){
-            $scope.ContinueGame(data[i].id_game);
-          }
-        };
+        //att
         new_data = $filter('exact')(data,{current_player: id.toString()});
         $scope.notif = new_data.length;
       });
   };
 
-  if($scope.is_logged) $scope.GetPlayingGames($scope.current_user.id_user);
+  $scope.FindLeavedGame= function(id){
+    var toto = gameService.get_playing_games(id);
+    toto.then(function(data) {
+        $scope.playing_games = data;
+        //att
+        
+        for (var i = 0; i < $scope.playing_games.length; i++) {
+          if($scope.playing_games[i].round >= (total_round*2)){
+            console.log((total_round*2));
+            new_data_game = $scope.playing_games[i];
+            new_data_game.is_finished = 1;
+            var tutu = gameService.update_current_game(new_data_game);
+            tutu.then(function(data){
+              add_score_users(new_data_game);
+              $scope.GetNotifGames($scope.current_user.id_user);
+              $scope.GetPlayingGames($scope.current_user.id_user);
+            });
+          };
+        };
+
+        new_data = $filter('exact')(data,{current_player: id.toString()});
+        $scope.notif = new_data.length;
+    });
+  };
+
+  if($scope.is_logged) $scope.FindLeavedGame($scope.current_user.id_user);
 
   $scope.NewGame = function(id,pseudo,quizz_id){
 
@@ -208,16 +229,6 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
   };
 
   $scope.PlayRound = function() {
-    if($scope.current_game.round >= (total_round*2)){
-        $scope.current_game.is_finished = true;
-        add_score_users();
-        var toto = gameService.update_current_game($scope.current_game);
-        toto.then(function(data){
-        $scope.launched = false;
-        $scope.GetNotifGames($scope.current_user.id_user);
-        $scope.GetPlayingGames($scope.current_user.id_user);
-        });
-    }else{
     $scope.current_game.round += 1;
     if($scope.current_user.id_user == $scope.current_game.user_id_1){
        $scope.current_game.current_player = $scope.current_game.user_id_2;
@@ -227,6 +238,7 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
 
     var toto = gameService.new_turn($scope.current_game);
     toto.then(function(data){
+      //iter involontaire
       $scope.GetNotifGames($scope.current_user.id_user);
       $scope.GetPlayingGames($scope.current_user.id_user);
     })
@@ -237,7 +249,7 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
     ThemeRandom();
     $scope.viewTheme = true;
     };
-  };
+
 
   $scope.End = function(turnNum){
     if(turnNum == 3){
@@ -254,7 +266,7 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
 
       if($scope.current_game.round >= (total_round*2)){
         $scope.current_game.is_finished = true;
-        add_score_users();
+        add_score_users($scope.current_game);
       };
 
       var toto = gameService.update_current_game($scope.current_game);
@@ -267,36 +279,36 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
     };
   };
 
-  add_score_users = function(){
-    if($scope.current_game.score_1 > $scope.current_game.score_2){
+  add_score_users = function(curr_game){
+    if(curr_game.score_1 > curr_game.score_2){
       $http.post('./php/update_user_score.php',{
-        'id': $scope.current_game.user_id_1,
+        'id': curr_game.user_id_1,
         'score_add': 3,
         'victories': 1
       });
        $http.post('./php/update_user_score.php',{
-        'id': $scope.current_game.user_id_2,
+        'id': curr_game.user_id_2,
         'score_add': 0,
         'defeats': 1
       });
-    }else if($scope.current_game.score_1 < $scope.current_game.score_2){
+    }else if(curr_game.score_1 < curr_game.score_2){
       $http.post('./php/update_user_score.php',{
-        'id': $scope.current_game.user_id_2,
+        'id': curr_game.user_id_2,
         'score_add': 3,
         'victories': 1
       });
       $http.post('./php/update_user_score.php',{
-        'id': $scope.current_game.user_id_1,
+        'id': curr_game.user_id_1,
         'score_add': 0,
         'defeats': 1
       });
     }else{
       $http.post('./php/update_user_score.php',{
-        'id': $scope.current_game.user_id_1,
+        'id': curr_game.user_id_1,
         'score_add': 1
       });
       $http.post('./php/update_user_score.php',{
-        'id': $scope.current_game.user_id_2,
+        'id': curr_game.user_id_2,
         'score_add': 1
       });
     };
