@@ -14,11 +14,14 @@
         $stmt1 = $dbh->prepare($sql1);
         $stmt1->execute();
         $result1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($sql1);
         $current_score = intval($result1[0]["score_user"]);
         $current_victories = intval($result1[0]['victories']);
         $current_defeat = intval($result1[0]['defeat']);
         $current_questions_added = intval($result1[0]['questions_added']);
+
+        echo $score_add;
+        echo $result1[0]["score_user"];
+        echo $current_score;
 
         $victories = $current_victories + $victories_add;
         $defeat = $current_defeat + $defeat_add;
@@ -28,6 +31,7 @@
         $sql = "UPDATE users SET score_user = '$score_user',victories = '$victories',defeats = '$defeat',questions_added = '$questions_added' WHERE id_user = '$id'";
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
-        echo $current_score;
+        
+        echo $sql;
 ?>      
 

@@ -6,14 +6,14 @@
 				<tr>
 					<td><h4>Nom du Quizz</h4></td>
 					<td><h4>Code</h4></td>
-					<td><h4>Validation</h4></td>
+					<td></td>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="qz in quizz" ng-init="updated_quizz = qz;">
 					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text" ng-model="updated_quizz.name_quizz" rows="2" style="resize: none;"></textarea></td>
 					<td><h3 style="margin-top: 10px;">{{updated_quizz.code_quizz}}</h3></td>
-					<td><button  style="margin-top: 10px;" type="button" class="btn btn-success" ng-click="validation(updated_quizz)">Valider</button></td>
+					<td><button  style="margin-top: 10px;" type="button" class="btn btn-success" ng-click="validation(updated_quizz)">Sauver</button></td>
 				</tr>
 			</tbody>
 		</table>

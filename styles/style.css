@@ -28,3 +28,18 @@ body {
 	background-color: #fdbd62 ;
 
 }
+
+div .image-bg{
+	height: 100%;
+	min-height: 600px;
+	padding: 30px;
+	margin-top: -20px;
+	background: url(../ressources/home.png) no-repeat center center;
+	-webkit-background-size: cover;
+ 	-moz-background-size: cover;
+ 	-o-background-size: cover;
+ 	background-size: cover;
+ 	box-shadow: 0 5px 10px rgba(0, 0, 0, .55);
+	color: #fff;
+	z-index: 2;
+}

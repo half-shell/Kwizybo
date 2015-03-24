@@ -4,10 +4,11 @@
     $request = json_decode($postdata, TRUE);
     $id =  $request['id'];
     $pseudo = $request['pseudo'];
+    $quizz_id = $request['quizz_id'];
     $result[0]['id_user'] = $id;
 
     while($id == $result[0]['id_user']){
-		$sql = "SELECT id_user, pseudo FROM users ORDER BY RAND() LIMIT 1";
+		$sql = "SELECT id_user, pseudo FROM users WHERE quizz_id = '$quizz_id' ORDER BY RAND() LIMIT 1";
    		$stmt = $dbh->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);

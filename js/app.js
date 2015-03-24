@@ -22,7 +22,7 @@ app.config(function($routeProvider) {
         templateUrl: 'partials/ladder.html'
     });
     $routeProvider.when('/Questions', {
-         title: '- Ajouter une Question',
+         title: '- Proposer une Question',
         controller: 'AddQuestions',
         templateUrl: 'partials/add_question.html'
     });
@@ -33,6 +33,7 @@ app.config(function($routeProvider) {
     });
     $routeProvider.when('/Connexion', {
         title: '- Connexion',
+        controller: 'SignIn',
         templateUrl: 'partials/sign_in.html'
     });
     $routeProvider.when('/Themes', {
@@ -101,4 +102,31 @@ app.run(function($rootScope, $location, loginService){
     $rootScope.$on('$routeChangeSuccess', function (event, current, previous) {
         $rootScope.title = current.$$route.title;
     });
+});
+
+app.filter('exact', function(){
+  return function(items, match){
+    var matching = [], matches, falsely = true;
+    
+    // Return the items unchanged if all filtering attributes are falsy
+    angular.forEach(match, function(value, key){
+      falsely = falsely && !value;
+    });
+    if(falsely){
+      return items;
+    }
+    
+    angular.forEach(items, function(item){ // e.g. { title: "ball" }
+      matches = true;
+      angular.forEach(match, function(value, key){ // e.g. 'all', 'title'
+        if(!!value){ // do not compare if value is empty
+          matches = matches && (item[key] === value);  
+        }
+      });
+      if(matches){
+        matching.push(item);  
+      }
+    });
+    return matching;
+  }
 });

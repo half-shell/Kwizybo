@@ -44,9 +44,9 @@ app.factory('gameService',function($http,$q, $location, sessionService){
 			});
 			return defer.promise;
 		},
-		new_game:function(id_user,pseudo){
+		new_game:function(id_user,pseudo,quizz_id){
 			var defer = $q.defer();
-			var promise = $http.post('./php/add_new_game.php',{'id': id_user,'pseudo': pseudo}); //send data to user.php
+			var promise = $http.post('./php/add_new_game.php',{'id': id_user,'pseudo': pseudo, 'quizz_id': quizz_id}); //send data to user.php
 			promise.then(function(msg){
 				defer.resolve(msg.data);
 			});

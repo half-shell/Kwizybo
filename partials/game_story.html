@@ -1,9 +1,9 @@
 <div class="col-md-8 col-sm-offset-{{2+admin_margin}}">
 	<div class="text-center well" ng-show="len_finish == 0">
-		<h3>Vous n'avez pas encore joué de partie</h3>
+		<h3>Vous devez avoir joué au moin une partie pour pouvoir accéder à votre historique.</h3>
 	</div>
 	<div class="text-center well col-md-12" ng-show="len_finish > 0">
-		<h3  style="margin-top:-10px;">Parties Terminée</h3>
+		<h3  style="margin-top:-10px;">Parties Terminées</h3>
 		<div ng-repeat="finished_game in finished_games track by finished_game.id_game">
 			<div class="col-md-3 "><h2><span ng-class="finished_game.score_1 > finished_game.score_2 ? 'label-success' : finished_game.score_1 < 	finished_game.score_2 ? 'label-danger' : 'label-warning'" class="label">{{finished_game.user_name_1}}</span></h2></div>
 			<div class="col-md-6">

@@ -1,11 +1,40 @@
-<div class="container col-md-8 col-md-offset-{{2+admin_margin}}">
-	<div class="jumbotron">
-  		<h1>Bienvenue !</h1>
- 		<p>&nbsp&nbspLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
- 		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
- 		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
- 		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
- 		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
- 		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<div class="image-bg">
+	<div class="col-md-8 col-md-offset-{{2+admin_margin}}">
+
+  		<h1>Bienvenue sur Kwizybo !</h1>
+ 		<p style="font-size: 18px" ng-hide="is_logged">&nbsp&nbspConnectez vous pour jouer à des quizz en plusieurs manches avec vos camarades et vos amis ... 
+ 		Gagnez des parties et ajoutez des questions aux quizz pour gagner des 
+ 		points et montrer à tout le monde que vous êtes le meilleur.</p>
+    <p style="font-size: 18px" ng-show="is_logged">&nbsp&nbspJouer à des quizz en plusieurs manches avec vos camarades et vos amis ... 
+    Gagnez des parties et ajoutez des questions aux quizz pour gagner des points et montrer à tout le monde que vous êtes le meilleur.</p>
+
+ 	</div>
+ 	<div style="margin-top: 80px" class="col-md-8 col-md-offset-{{2+admin_margin}} text-center"  ng-hide="is_logged">
+ 	  <a href="#/Connexion" style="margin: 30px" type="button" class="btn btn-lg btn-warning">Connexion</a>
+ 	  <a href="#/Inscription" style="margin: 30px" type="button" class="btn btn-lg btn-warning">Inscription</a>
+ 	</div>
+  <div style="margin-top: 80px" class="col-md-8 col-md-offset-{{2+admin_margin}} text-center"  ng-show="is_logged">
+    <a href="#/Game" style="margin: 30px" type="button" class="btn btn-lg btn-warning">Jouer</a>
+    <a href="#/AjouterQuestion" style="margin: 30px" type="button" class="btn btn-lg btn-warning">Proposer une question</a>
+  </div>
+</div>
+<div>
+	<div class="col-md-8 col-md-offset-{{2+admin_margin}}">
+
+  		<h1 style="color: #009d27">Fonctionnement</h1>
+  		<div class="well col-md-3 col-md-offset-1" style="min-heigth: 500px">
+  			<h3 style="margin-top: 0px; color: #009d27"><span class="glyphicon glyphicon-log-in">&nbspInscrivez vous</h3>
+  			<p style="font-size: 18px">&nbsp&nbspInscrivez vous et rejoignez un quizz en entrant le code donné par votre prof.</p>
+  		</div>
+ 		<div class="well col-md-3 col-md-offset-1" style="min-heigth: 500px">
+  			<h3 style="margin-top: 0px; color: #009d27"><span class="glyphicon glyphicon-pencil">&nbspAjoutez des Questions</h3>
+  			<p style="font-size: 18px">&nbsp&nbspAjoutez des questions aux différents thèmes. Si votre question est validée par un administrateur, vous gagnez des points.</p>
+  		</div>
+  		<div class="well col-md-3 col-md-offset-1" style="min-heigth: 500px">
+  			<h3 style="margin-top: 0px; color: #009d27"><span class="glyphicon glyphicon-play">&nbspJouez avec vos amis</h3>
+  			<p style="font-size: 18px">&nbsp&nbspJouez des parties en 3 manches. Remportez des parties afin de gagner des points et ainsi monter dans le classement.</p>
+  		</div>
+
+
  	</div>
 </div>
