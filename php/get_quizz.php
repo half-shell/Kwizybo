@@ -2,7 +2,7 @@
         // set up the connection variables
         session_start();
         include 'connect_db.php';
-        $user_id = $_SESSION['id-user'];
+        $user_id = $_COOKIE['id-user'];
         // connect to the database
 
         // a query get all the records from the users table

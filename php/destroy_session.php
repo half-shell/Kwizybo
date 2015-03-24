@@ -1,6 +1,6 @@
 <?php 
 	session_id('uid');
-	session_id('id-user');
+	setcookie('id-user');
 	session_start();
 	session_destroy();
 	session_commit();

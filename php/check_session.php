@@ -1,8 +1,8 @@
 <?php 
 	session_start();
-	if( isset($_SESSION['uid']) && isset($_SESSION['id-user'])){
+	if(isset($_SESSION['uid']) && isset($_COOKIE['id-user'])){
 		include '../php/connect_db.php';
-		$id = $_SESSION['id-user'];
+		$id = $_COOKIE['id-user'];
 		$sql = "SELECT * FROM users WHERE id_user='$id'";
     	$stmt = $dbh->prepare($sql);
 		$stmt->execute();
@@ -10,6 +10,6 @@
 		$result = $result[0];
 	 	print json_encode($result);
 	}else{
-		print 'not logged';
+		print'not logged';
 	};
 ?>

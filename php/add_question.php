@@ -10,7 +10,7 @@
         $bad_rep1 = htmlspecialchars($request['bad_rep1']);
         $bad_rep2 = htmlspecialchars($request['bad_rep2']);
         $bad_rep3 = htmlspecialchars($request['bad_rep3']);
-        $user_id = $_SESSION['id-user'];
+        $user_id = $_COOKIE['id-user'];
 
         if($theme_id && $value && $good_rep && $bad_rep1 && $bad_rep2 && $bad_rep3){
                 $sql = "INSERT INTO questions (theme_id, value_question, good_rep, bad_rep1, bad_rep2, bad_rep3, valid, user_id) VALUES ('$theme_id','$value','$good_rep','$bad_rep1','$bad_rep2','$bad_rep3','0','$user_id')";

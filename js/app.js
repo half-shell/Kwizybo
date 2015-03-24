@@ -91,12 +91,16 @@ app.run(function($rootScope, $location, loginService){
         if( routespermission.indexOf($location.path()) != -1)
         {
             var connected = loginService.islogged();
-            connected.then(function(msg){ 
-                if(msg.data == 'not logged') $location.path('/Connexion');
-                if(adminpermission.indexOf($location.path()) != -1){
-                    if(msg.data.admin != 1) $location.path('/Home');
-                }; 
+            connected.success(function(msg){
+             console.log(msg.admin); 
+                if(msg == 'not logged') $location.path('/Connexion'); 
             });
+        };
+        if(adminpermission.indexOf($location.path()) != -1){
+          var connected = loginService.islogged();
+          connected.success(function(msg){
+            if(msg.admin == 0) $location.path('/Home');
+          });
         };
         if(ifloggednopermit.indexOf($location.path()) != -1){
           var connected = loginService.islogged();

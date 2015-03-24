@@ -12,7 +12,7 @@
 	if($result){
 		if ($result["password"] == $password){
 			session_start();
-			$_SESSION['id-user'] = $result['id_user'];
+			setcookie('id-user', $result['id_user'],time() + 31536000);
 			$_SESSION['uid']=uniqid('ang_');
 			$result['uid'] = $_SESSION['uid'];
 			print json_encode($result);

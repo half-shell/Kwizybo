@@ -11,7 +11,7 @@ app.factory('loginService',function($http,$q, $location, sessionService){
 					//scope.msgtxt='Correct information';
 					var data_user = msg.data;
 					sessionService.set('uid',uid);
-					sessionService.set('id-user',data_user.id_user);
+					// sessionService.set('id-user',data_user.id_user);
 					defer.resolve(data_user);
 				}	       
 				else  {
@@ -22,7 +22,7 @@ app.factory('loginService',function($http,$q, $location, sessionService){
 			return defer.promise;
 		},
 		logout:function(){
-			sessionService.destroy('id-user');
+			// sessionService.destroy('id-user');
 			sessionService.destroy('uid');
 			$location.path('/Connexion');
 		},
