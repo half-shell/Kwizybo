@@ -5,8 +5,8 @@
         $request = json_decode($postdata, TRUE);
 
         $id =  $request['id'];
-        $name_theme =  $request['name_theme'];
-        $description_theme = $request['description_theme'];
+        $name_theme =  str_replace("'","\'" ,htmlspecialchars($request['name_theme']));
+        $description_theme = str_replace("'","\'" ,htmlspecialchars($request['description_theme']));
         $playable =  $request['playable'];
 
         $sql = "UPDATE themes SET name_theme = '$name_theme',description_theme = '$description_theme', playable = '$playable' WHERE id_theme = '$id'";

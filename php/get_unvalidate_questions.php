@@ -8,7 +8,7 @@
         $sql = 'SELECT id_question,user_id,theme_id,value_question,good_rep,bad_rep1,bad_rep2,bad_rep3,name_theme,pseudo FROM questions
         INNER JOIN themes ON theme_id = id_theme
         INNER JOIN users ON user_id = id_user
-        WHERE valid = "0"';
+        WHERE valid = "0" AND rejected = "0"';
 
         // use prepared statements, even if not strictly required is good practice
         $stmt = $dbh->prepare($sql);

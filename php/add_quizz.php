@@ -4,7 +4,7 @@
         $postdata = file_get_contents("php://input");
         $request = json_decode($postdata, TRUE);
 
-        $name = htmlspecialchars($request['name_quizz']);
+        $name = str_replace("'","\'" ,htmlspecialchars($request['name_quizz']));
         $user_id = $_COOKIE['id-user'];
         $code_quizz = sprintf("%06d", mt_rand(100000, 999999));;
 

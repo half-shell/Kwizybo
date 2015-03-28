@@ -3,12 +3,12 @@
         $postdata = file_get_contents("php://input");
         $request = json_decode($postdata, TRUE);
         
-        $name = htmlspecialchars($request['name_theme']);
-        $description = htmlspecialchars($request['description_theme']);
+        $name = str_replace("'","\'" ,htmlspecialchars($request['name_theme']));
+        $description = str_replace("'","\'" ,htmlspecialchars($request['description_theme']));
         $quizz_id = htmlspecialchars($request['quizz_id']);
 
 
-        if($name && $description && $quizz_id){
+        if($name && $quizz_id){
         $sql = "INSERT INTO themes (quizz_id,name_theme,description_theme,playable) VALUES ('$quizz_id','$name','$description','0')";
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute();
