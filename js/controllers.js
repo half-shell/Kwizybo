@@ -92,11 +92,10 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
         $scope.notif = new_data.length;
       });
   };
-  
-
 }]);
 
-app.controller('Parties', ['$scope', '$http','$filter','gameService', function($scope,$http,$filter,gameService) {
+app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService', function($scope,$interval,$http,$filter,gameService) {
+  var timer;
   $scope.is_connected();
   $scope.Math=Math;
   total_round = 3;
@@ -172,8 +171,26 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
     return $scope.questionsThemed;
   };
 
+  launch_timer = function(time){
+    $scope.timer = 0;
+    $scope.timer_div = true;
+    timer = $interval(function() {
+      if($scope.timer >= time) {
+        $scope.timer = 0;
+        $scope.timer_div = false;
+        $scope.reponseCheck(false);
+      }else{
+        $scope.timer ++;
+        console.log($scope.timer);
+      };
+    }, 500);
+  };
+
   playQuestion = function(theme_id){
-    if($scope.turn < 3) $scope.playings = [$scope.all_playings[$scope.turn]];
+    if($scope.turn < 3){ 
+      $scope.playings = [$scope.all_playings[$scope.turn]];
+      launch_timer(30);
+    };
     for(var i = 0 ; i < $scope.playings[0].reponses.length; i++){
       $scope.playings[0].reponses[i].rank = Math.random();
     };
@@ -268,6 +285,9 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
 
 
   $scope.End = function(turnNum){
+    $interval.cancel(timer);
+    timer = undefined;
+    $scope.timer_div = false;
     if(turnNum == 3){
       $scope.savedScore[$scope.current_game.round] = $scope.scoreRound / 3;
       $scope.sevedFalseRep[$scope.current_game.round] = $scope.falseRep / 3;
@@ -331,7 +351,9 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
   };
 
   $scope.reponseCheck = function(reponse) {
-    if (reponse){
+    $interval.cancel(timer);
+    timer = undefined;
+    if(reponse){
       $scope.turn += 1;
       $scope.score += 1;
       $scope.scoreRound += 1;

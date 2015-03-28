@@ -31,6 +31,11 @@
 	</div>
 
 	<br/>
+	<div class="well" data-ng-show="timer_div" style="padding-bottom: 0;">
+		<div class="progress">
+			<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{timer/30*100}}%"></div>
+		</div>
+	</div>
 	<div class="well text-center col-md-8 col-md-offset-2" ng-show="viewTheme">
 		<h3  style="margin-top:-10px;">Choisir un thème</h3>
 		<button type="button" ng-repeat="theme in randThemes" ng-click="themeSelect(theme.id_theme)" style="white-space: normal; width:200px; margin:10px;" class="btn btn-default btn-lg">{{theme.name_theme}}</button>
@@ -40,11 +45,10 @@
 		<h3>{{question.value}}</h3>
 		<button type="button" ng-repeat="reponse in question.reponses | orderBy:'rank' " ng-click="reponseCheck(reponse.valid)" style="white-space: normal; width:200px; margin:10px;" class="btn btn-default btn-lg btn-lock">{{reponse.name}}</button>
 	</div>
-	
 	<div ng-show="launched || button_end_game" >
 		<div ng-hide="viewTheme" class="well well-sm col-md-2 col-md-offset-5 text-center">
 			<div ng-show="launched || button_end_game">
-				<h3> Manche : {{Math.floor((current_game.round+1)/2)}}</h3>
+				<h3> Manche : {{Math.floor((current_game.round+1)/2)}} {{timer}}</h3>
 				<div class="progress">
   					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{scoreRound/3*100}}%">
 					</div>
