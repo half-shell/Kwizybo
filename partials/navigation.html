@@ -53,8 +53,8 @@
 		</li>	
 	</ul>
 
-	<ul class="nav navbar-nav col-md-3">
-		<li class="col-md-offset-3">
+	<ul class="nav navbar-nav col-md-2">
+		<li class="col-md-offset-5">
 			<button style="margin-top:8px" class="btn btn-warning" ng-click="play_button()" role="button"  ng-show="is_logged == true" ng-class="{active: active('/Game')}">Jouer
 				<span ng-show="notif >= 1">&nbsp
 					<span class="label label-danger">{{notif}}</span>
@@ -63,7 +63,7 @@
 		</li>
 	</ul>
 
-	<ul class="nav navbar-nav navbar-right col-md-{{4-dropdown_margin/2}}" style="padding-right: 15px">
+	<ul class="nav navbar-nav navbar-right col-md-{{4}}" style="padding-right: 15px">
 		<li  class="pull-right" ng-show="is_logged == true">
 			<a ng-click="logout()">Déconnexion</a>
 		</li>
