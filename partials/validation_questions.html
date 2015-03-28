@@ -1,4 +1,4 @@
-<div class="container col-md-10 col-md-offset-{{1+admin_margin}}">
+<div class="container col-md-12">
 	<div>
 		<div class="well text-center col-md-8 col-md-offset-2" ng-show="is_questions() == 0">
 			<h2>Il n'y a aucune question à valider pour le moment {{is_question()}}.</h2>
@@ -20,17 +20,21 @@
 			<tbody>
 				<tr ng-repeat="unvalid_question in unvalid_questions"  ng-init="updated_question = unvalid_question">
 					<td><br/>{{updated_question.pseudo}}</textarea></td>
-					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="textarea" ng-model="updated_question.value_question" rows="2" style="resize: none;"></textarea></td>
-					<td onchange="this.className = 'form-group has-success'">
-						<select style="margin-top: 12%;" onchange="this.style.backgroundColor = '#e6ffe2'"class="form-control" ng-model="updated_question.theme_id">
+					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="textarea" ng-model="updated_question.value_question" rows="4" style="resize: none;"></textarea></td>
+					<td style="width: 150px" onchange="this.className = 'form-group has-success'">
+						<select style="margin-top: 30px;" onchange="this.style.backgroundColor = '#e6ffe2'"class="form-control" ng-model="updated_question.theme_id">
 							<option ng-repeat="theme in themes" ng-value="theme.id_theme" ng-selected="updated_question.theme_id == theme.id_theme">{{theme.name_theme}}</option>
 						</select>
 					</td>
-					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'"class="form-control" type="text"  ng-model="updated_question.good_rep" rows="2" style="resize: none;"></textarea></td>
-					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text"  ng-model="updated_question.bad_rep1" rows="2" style="resize: none;"></textarea></td>
-					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text"  ng-model="updated_question.bad_rep2" rows="2" style="resize: none;"></textarea></td>
-					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text"  ng-model="updated_question.bad_rep3" rows="2" style="resize: none;"></textarea></td>
-					<td><button  style="margin-top: 12%;" type="button" class="btn btn-success" ng-click="validation(updated_question);">Valider</button></td>
+					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'"class="form-control" type="text"  ng-model="updated_question.good_rep" rows="4" style="resize: none;"></textarea></td>
+					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text"  ng-model="updated_question.bad_rep1" rows="4" style="resize: none;"></textarea></td>
+					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text"  ng-model="updated_question.bad_rep2" rows="4" style="resize: none;"></textarea></td>
+					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text"  ng-model="updated_question.bad_rep3" rows="4" style="resize: none;"></textarea></td>
+					<td>
+						<button  style="margin-top: 10px;" type="button" class="btn btn-success" ng-click="validation(updated_question);">Valider</button>
+						<br/>
+						<button  style="margin-top: 5px;" type="button" class="btn btn-danger" ng-click="validation(updated_question);">Rejeter</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>

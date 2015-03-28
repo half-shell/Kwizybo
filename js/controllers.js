@@ -5,10 +5,16 @@ app.controller('Acceuil', ['$scope','loginService', function ($scope,loginServic
 }]);
 
 app.controller('Navigation', ['$scope','$http','$location','$filter','loginService','gameService', function($scope,$http,$location,$filter,loginService,gameService){
+  $scope.play_button = function(){
+    $location.path("/Game");
+  };
+
   $scope.login=function(data){
     var toto = loginService.login(data);
     toto.then(function(msg){
       $scope.current_user = msg;
+      $scope.dropdown_margin = 2;
+      $scope.dropdown = true;
       $location.path("/Home");
       $scope.GetNotifGames($scope.current_user.id_user);
       if($scope.current_user.admin == '1'){
@@ -44,11 +50,12 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
   $scope.logout=function(){
     loginService.logout();
     $scope.admin = false;
-    $scope.admin_margin = 0;
+    $scope.dropdown = false;
+    $scope.dropdown_margin = 0;
     $scope.is_logged = false;
     $scope.current_user = null;
   };
-
+  $scope.bad_infos = false;
   $scope.is_logged = false;
 
 
@@ -58,15 +65,25 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
           $scope.questions_to_validate = data.length;
         });
     $scope.admin = true;
-    $scope.admin_margin = 1;
   };
 
   $scope.active = function(path) {
     return path === $location.path();
   };
-  
+
+  $scope.changeDropdown = function(){
+    if ($scope.dropdown == true) {
+        $scope.dropdown_margin = 0;
+        $scope.dropdown = false;
+    }else{
+      $scope.dropdown = true;
+      $scope.dropdown_margin = 2;
+    };
+  };
+
+  $scope.dropdown_margin = 0;
+  $scope.dropdown = false;
   $scope.admin = false;
-  $scope.admin_margin = 0;
 
   $scope.GetNotifGames = function(id){
     var toto = gameService.get_playing_games(id);
@@ -200,7 +217,6 @@ app.controller('Parties', ['$scope', '$http','$filter','gameService', function($
             });
           };
         };
-
         new_data = $filter('exact')(data,{current_player: id.toString()});
         $scope.notif = new_data.length;
     });

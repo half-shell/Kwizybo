@@ -21,7 +21,7 @@ app.config(function($routeProvider) {
         controller: 'Ladder',
         templateUrl: 'partials/ladder.html'
     });
-    $routeProvider.when('/AjouterQuestions', {
+    $routeProvider.when('/ProposerQuestion', {
          title: '- Proposer une Question',
         controller: 'AddQuestions',
         templateUrl: 'partials/add_question.html'
@@ -84,7 +84,7 @@ app.config(function($routeProvider) {
   });
 
 app.run(function($rootScope, $location, loginService){
-    var routespermission = ['/RejoindreQuizz','/Classement','/MonCompte','/Game','/AjouterQuestions','/Historique'];  //route that require login
+    var routespermission = ['/RejoindreQuizz','/Classement','/MonCompte','/Game','/ProposerQuestion','/Historique'];  //route that require login
     var adminpermission = ['/AjouterQuizz','/Themes','/ValiderQuestions','/GererQuizz','/GererMembres','/GererQuestions','/GererThemes'];
     var ifloggednopermit = ['/Connexion','/Inscription'];
     $rootScope.$on('$routeChangeStart', function(){
@@ -98,7 +98,7 @@ app.run(function($rootScope, $location, loginService){
         if(adminpermission.indexOf($location.path()) != -1){
           var connected = loginService.islogged();
           connected.success(function(msg){
-            if(msg.admin == 0) $location.path('/Home');
+            if(msg.admin != 1) $location.path('/Home');
           });
         };
         if(ifloggednopermit.indexOf($location.path()) != -1){
