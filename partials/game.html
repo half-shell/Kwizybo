@@ -14,8 +14,8 @@
 	<div ng-show="viewTheme == false && launched == false && button_end_game == false && playing_games.length > 0" class="text-center well  col-md-12" ng->
 		<h3  style="margin-top:-10px;">Parties En Cours</h3>
 		<div ng-repeat="playing_game in playing_games track by playing_game.id_game">
-			<div class="col-md-3 "><h2><span ng-class="playing_game.user_name_1 == current_user.pseudo ? 'label-primary' : 'label-default'" class="label">{{playing_game.user_name_1}}</span></h2></div>
-			<div class="col-md-6">
+			<div class="col-md-4 "><h2><span ng-class="playing_game.user_name_1 == current_user.pseudo ? 'label-primary' : 'label-default'" class="label">{{playing_game.user_name_1}}</span></h2></div>
+			<div class="col-md-4">
 				<div class="btn-group btn-group-lg" style="margin-top:15px;">
 				<button  class="btn disabled">{{playing_game.score_1}}</button>
 				<button type="button" ng-click="ContinueGame(playing_game.id_game)" ng-class="current_user.id_user != playing_game.current_player ? 'disabled btn-warning' : 'btn-success'"class="btn " >
@@ -25,7 +25,7 @@
 				<button class="btn disabled">{{playing_game.score_2}}</button>
 				</div>
 			</div>
-			<div class="col-md-3"><h2><span ng-class="playing_game.user_name_2 == current_user.pseudo ? 'label-primary' : 'label-default'" class="label">{{playing_game.user_name_2}}</span></h2>
+			<div class="col-md-4"><h2><span ng-class="playing_game.user_name_2 == current_user.pseudo ? 'label-primary' : 'label-default'" class="label">{{playing_game.user_name_2}}</span></h2>
 			</div>
 		</div>
 	</div>
@@ -40,7 +40,7 @@
 		<h3  style="margin-top:-10px;">Choisir un thème</h3>
 		<button type="button" ng-repeat="theme in randThemes" ng-click="themeSelect(theme.id_theme)" style="white-space: normal; width:200px; margin:10px;" class="btn btn-default btn-lg">{{theme.name_theme}}</button>
 	</div>
-	<div class="well well-sm text-center col-md-8 col-md-offset-2" ng-show="launched" ng-repeat="question in playings" >
+	<div class="well well-sm text-center col-md-10 col-md-offset-1" ng-show="launched" ng-repeat="question in playings" >
 	 	<h4><span class="label label-success">Question {{turn+1}} </span></h4>
 		<h3>{{question.value}}</h3>
 		<button type="button" ng-repeat="reponse in question.reponses | orderBy:'rank' " ng-click="reponseCheck(reponse.valid)" style="white-space: normal; width:200px; margin:10px;" class="btn btn-default btn-lg btn-lock">{{reponse.name}}</button>

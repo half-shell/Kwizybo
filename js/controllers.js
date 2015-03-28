@@ -400,15 +400,17 @@ app.controller('AddQuestions', ['$scope', '$http', function($scope,$http) {
         $scope.data = {};
         $scope.succes_add = true;
         $scope.bad_infos = false;
-        $scope.msg = "Question ajouté avec succès";
+        $scope.msg = "Question proposée avec succès";
       }else{
         $scope.infos = true;
+        $scope.succes_add = false;
         $scope.bad_infos = true;
         $scope.msg = msg;
       };
     });
   }else{
     $scope.infos = true;
+    $scope.succes_add = false;
     $scope.bad_infos = true;
     $scope.msg = "Tous les champs ne sont pas remplis";
   };
@@ -452,6 +454,14 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
       return 0;
     }
   };
+  $scope.delete_question = function(question) {
+    $http.post('./php/delete_question.php',{
+          'id': question.id_question
+      }).
+      success(function(){
+        load_scope();
+      });
+    };
 
   $scope.validation = function(question) {
     $http.post('./php/validate_question.php',{
@@ -604,7 +614,14 @@ app.controller('SetQuestions', ['$scope','$http', function($scope,$http){
         })
       });
  
-  
+  $scope.delete_question = function(question) {
+    $http.post('./php/delete_question.php',{
+          'id': question.id_question
+      }).
+      success(function(){
+        load_scope();
+      });
+    };
 
   $scope.validation = function(question) {
     $http.post('./php/validate_question.php',{
