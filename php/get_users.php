@@ -3,7 +3,7 @@
         include 'connect_db.php';
         $postdata = file_get_contents("php://input");
         $request = json_decode($postdata, TRUE);
-        $quizz_id =  $request['quizz_id'];;
+        $quizz_id =  $request['quizz_id'];
         // connect to the database
 
         // a query get all the records from the users table

@@ -7,7 +7,7 @@
         // connect to the database
 
         // a query get all the records from the users table
-        $sql = "SELECT * FROM themes WHERE playable = '1' AND quizz_id = '$quizz_id'";
+        $sql = "SELECT * FROM themes WHERE playable = '1' AND quizz_id_themes = '$quizz_id'";
 
         // use prepared statements, even if not strictly required is good practice
         $stmt = $dbh->prepare($sql);

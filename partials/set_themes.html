@@ -1,3 +1,6 @@
+<div class="well text-center col-md-4 col-md-offset-4" style="padding:0; color: #009d27">
+   <h1>Editer les Thèmes</h1>
+</div >
 <div class="container col-md-12 ">
 	<div>
 		<div class="text-center well  col-md-4 col-md-offset-4">
@@ -24,7 +27,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="theme in themes | filter:{quizz_id: quizz_filter}: quizz_filter != ''" ng-init="updated_theme = theme;">
+				<tr ng-repeat="theme in themes | filter:{quizz_id_themes: quizz_filter}: quizz_filter != ''" ng-init="updated_theme = theme;">
 					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text" ng-model="updated_theme.name_theme" rows="2" style="resize: none;"></textarea></td>
 					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text"  ng-model="updated_theme.description_theme" rows="2" style="resize: none;"></textarea></td>
 					<td><h3 style="margin-top: 10px;">{{updated_theme.count_questions}}</h3></td>

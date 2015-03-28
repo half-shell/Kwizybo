@@ -9,7 +9,7 @@
 
 
         if($name && $quizz_id){
-        $sql = "INSERT INTO themes (quizz_id,name_theme,description_theme,playable) VALUES ('$quizz_id','$name','$description','0')";
+        $sql = "INSERT INTO themes (quizz_id_themes,name_theme,description_theme,playable) VALUES ('$quizz_id','$name','$description','0')";
                 $stmt = $dbh->prepare($sql);
                 $stmt->execute();
                 $data = [];

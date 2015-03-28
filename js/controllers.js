@@ -60,7 +60,9 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
 
 
   setAdmin = function(){
-    $http.get('./php/get_unvalidate_questions.php').
+    $http.post('./php/get_unvalidate_questions.php',{
+      'quizz_id': $scope.current_user.quizz_id
+    }).
         success(function(data) {
           $scope.questions_to_validate = data.length;
         });
@@ -112,10 +114,13 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
   }).
       success(function(data) {
         $scope.themes = data;
+        console.log(data);
         $scope.themes_len = data.length;
       });
 
-  $http.get('./php/get_questions.php').
+  $http.post('./php/get_questions.php',{
+    'quizz_id': $scope.current_user.quizz_id
+  }).
       success(function(data) {
           // here the data from the api is assigned to a variable named users
           for (var i = 0 ; i < data.length; i++) {
@@ -433,8 +438,10 @@ app.controller('GameStory', ['$scope', '$http','gameStoryService', function($sco
 app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
   $scope.is_connected();
   load_scope = function(){
-    $http.get('./php/get_unvalidate_questions.php').
-      success(function(data) {
+    $http.post('./php/get_unvalidate_questions.php',{
+      'quizz_id': $scope.current_user.quizz_id
+    }).
+      success(function(data){
         $scope.unvalid_questions = data;
         $scope.questions_to_validate = data.length;
       });
@@ -563,6 +570,7 @@ app.controller('SetThemes', ['$scope','$http', function($scope,$http){
     $http.get('./php/get_setting_theme.php').
       success(function(data) {
         $scope.themes = data;
+        console.log($scope.themes);
       });
   };
 
@@ -590,7 +598,9 @@ app.controller('SetThemes', ['$scope','$http', function($scope,$http){
 app.controller('SetQuestions', ['$scope','$http', function($scope,$http){
   $scope.is_connected();
   load_scope = function(){
-    $http.get('./php/get_questions.php').
+    $http.post('./php/get_questions.php',{
+    'quizz_id': $scope.current_user.quizz_id
+  }).
       success(function(data) {
         $scope.questions = data;
       });
