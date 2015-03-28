@@ -50,17 +50,17 @@ app.config(function($routeProvider) {
         controller: 'ValidateQuestions',
         templateUrl: 'partials/validation_questions.html'
     });
-     $routeProvider.when('/GererQuestions', {
+     $routeProvider.when('/EditerQuestions', {
          title: '- Gestion des Questions',
         controller: 'SetQuestions',
         templateUrl: 'partials/set_questions.html'
     });
-    $routeProvider.when('/GererThemes', {
+    $routeProvider.when('/EditerThemes', {
          title: '- Gestion des Thèmes',
         controller: 'SetThemes',
         templateUrl: 'partials/set_themes.html'
     });
-    $routeProvider.when('/GererQuizz', {
+    $routeProvider.when('/EditerQuizz', {
          title: '- Gestion des Quizz',
         controller: 'SetQuizz',
         templateUrl: 'partials/set_quizz.html'
@@ -70,7 +70,7 @@ app.config(function($routeProvider) {
         controller: 'JoinQuizz',
         templateUrl: 'partials/join_quizz.html'
     });
-     $routeProvider.when('/GererMembres', {
+     $routeProvider.when('/EditerMembres', {
          title: '- Gestion des Membres',
         controller: 'SetUsers',
         templateUrl: 'partials/set_users.html'
@@ -85,7 +85,7 @@ app.config(function($routeProvider) {
 
 app.run(function($rootScope, $location, loginService){
     var routespermission = ['/RejoindreQuizz','/Classement','/MonCompte','/Game','/ProposerQuestion','/Historique'];  //route that require login
-    var adminpermission = ['/AjouterQuizz','/Themes','/ValiderQuestions','/GererQuizz','/GererMembres','/GererQuestions','/GererThemes'];
+    var adminpermission = ['/AjouterQuizz','/Themes','/ValiderQuestions','/EditerQuizz','/EditerMembres','/EditerQuestions','/EditerThemes'];
     var ifloggednopermit = ['/Connexion','/Inscription'];
     $rootScope.$on('$routeChangeStart', function(){
         if( routespermission.indexOf($location.path()) != -1)
