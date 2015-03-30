@@ -37,8 +37,26 @@
 					<td>
 						<button  style="margin-top: 10px;" type="button" class="btn btn-success" ng-click="validation(updated_question);">Valider</button>
 						<br/>
-						<button  style="margin-top: 5px;" type="button" class="btn btn-danger disabled " ng-click="validation(updated_question);">Rejeter</button>
+						<div class="modal-header">
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#dialogTestDialog{{$index}}">Rejeter</button>
+						</div>
+						<div class="modal fade" id="dialogTestDialog{{$index}}" tabindex="-1" role="dialog" aria-labelledby="executionOptionLabel" aria-hidden="true">
+                    		<div class="modal-dialog" >
+                    	   		<div class="modal-content " style="background-color: #fbf2d9;">
+                    	   			<h3>Voulez vous rejeter la question : {{updated_question.value_question}} ?</h3>
+									<div class="modal-body text-left">
+										<h4>Le membre <b>{{updated_question.pseudo}}</b> pourra la corriger.</h4>
+										<label>Motif du rejet</label>
+										<textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text"  ng-model="updated_question.reject_reason" rows="4" style="resize: none;"></textarea>
+										<br/>
+										<button type="button" class="btn btn-danger" ng-click="reject(updated_question);">Rejeter</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+									</div>                                 
+                    	   	    </div>
+                    	   	</div>
+                    	</div>
 					</td>
+					  
 				</tr>
 			</tbody>
 		</table>

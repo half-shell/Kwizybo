@@ -448,6 +448,10 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
         $scope.questions_to_validate = data.length;
       });
   };
+  $scope.index = 0;
+  $scope.clear = function(){
+    updated_question = {};
+  };
 
   $http.post('./php/get_themes.php',{
     'quizz_id': $scope.current_user.quizz_id
@@ -489,6 +493,16 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
           'score_add': 1,
           'questions_added': 1
         });
+      });
+    };
+    $scope.reject = function(question) {
+    $http.post('./php/reject_question.php',{
+          'id': question.id_question, 
+          'reject_reason': question.reject_reason
+         }
+      ).
+      success(function(){
+        load_scope();
       });
     };
   load_scope();
