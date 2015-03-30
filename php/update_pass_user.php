@@ -6,7 +6,6 @@
 
         $id =  $request['id'];
         $password =  md5(htmlspecialchars($request['password']));
-        echo $request['password'];
 
         $sql = "UPDATE users SET password = '$password' WHERE id_user = '$id'";
         $stmt = $dbh->prepare($sql);

@@ -7,6 +7,9 @@
 		<li ng-show="is_logged == true && current_user.quizz_id != undefined" ng-class="{ active: active('/ProposerQuestion')}">
 			<a href="#/ProposerQuestion"><span class="glyphicon glyphicon-pencil"></span>&nbspProposer une Question</a>
 		</li>
+		<li ng-show="is_logged == true && current_user.quizz_id != undefined" ng-class="{ active: active('/CorrigerQuestions')}">
+			<a href="#/CorrigerQuestions"><span class="glyphicon glyphicon-erase"></span>&nbspCorriger ses Questions</a>
+		</li>
 		<li ng-show="is_logged == true && current_user.quizz_id == undefined" ng-class="{ active: active('/RejoindreQuizz')}">
 			<a href="#/RejoindreQuizz"><span class="glyphicon glyphicon-log-in"></span>&nbspRejoindre un Quizz</a>
 		</li>
@@ -28,7 +31,7 @@
 		<li ng-class="{active: active('/EditerThemes')}">
 			<a href="#/EditerThemes"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbspEditer les Thèmes</a>
 		</li>
-		<li ng-class="{active: active('/AjouterQuizz')}">
+		<li ng-class="{active: active('/AjouterQuizz')}" ng-show="current_user.quizz_id == undefined">
 			<a href="#/AjouterQuizz"><span class="glyphicon glyphicon-edit"></span>&nbsp&nbspAjouter un Quizz</a>
 		</li>
 		<li ng-class="{active: active('/EditerQuizz')}">

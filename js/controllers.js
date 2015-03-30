@@ -193,6 +193,7 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
 
   playQuestion = function(theme_id){
     if($scope.turn < 3){ 
+      $scope.launched = true;
       $scope.playings = [$scope.all_playings[$scope.turn]];
       launch_timer(30);
     };
@@ -358,6 +359,7 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
   $scope.reponseCheck = function(reponse) {
     $interval.cancel(timer);
     timer = undefined;
+    $scope.launched = false;
     if(reponse){
       $scope.turn += 1;
       $scope.score += 1;
@@ -813,7 +815,36 @@ app.controller('MyAccount', ['$scope','$http', function($scope,$http){
   $scope.infos = false;
   $scope.bad_infos = false;
 
+  $scope.change_username = function(user){
+    $scope.infos = false;
+    $scope.bad_infos = false;
+    if(user){
+      $http.post('./php/update_username.php',{
+          'id': $scope.current_user.id_user, 
+          'pseudo': user.pseudo
+        }
+      ).
+      success(function(msg){
+        if(msg.success == true){
+          $scope.infos = true;
+          $scope.bad_infos = false;
+          $scope.msg = "Changement de pseudo éffectué avec succès.";
+        }else{
+          $scope.infos = true;
+          $scope.bad_infos = true;
+          $scope.msg = msg;
+        };
+      });
+    }else{
+        $scope.infos = true;
+        $scope.bad_infos = true;
+        $scope.msg = "Veuillez choisir un nouveau pseudo.";
+    };
+  };
+
   $scope.change_password = function(user){
+    $scope.infos = false;
+    $scope.bad_infos = false;
     if(user){
       if(CryptoJS.MD5(user.old_pass) == $scope.current_user.password){
         if(user.new_pass == user.new_pass_conf){
@@ -840,7 +871,59 @@ app.controller('MyAccount', ['$scope','$http', function($scope,$http){
     }else{
         $scope.infos = true;
         $scope.bad_infos = true;
-        $scope.msg = "Tous les champs ne sont pas remplis";
+        $scope.msg = "Tous les champs ne sont pas remplis.";
     };
   };
 }]);  
+
+app.controller('RejectedQuestions', ['$scope','$http', function($scope,$http){
+  $scope.is_connected();
+  load_scope = function(){
+    $http.post('./php/get_rejected_questions.php',{
+      'id_user': $scope.current_user.id_user
+    }).
+      success(function(data){
+        $scope.recjected_questions = data;
+        $scope.rejected_count = data.length;
+      });
+  };
+
+  $http.post('./php/get_themes.php',{
+    'quizz_id': $scope.current_user.quizz_id
+  }).
+      success(function(data) {
+        $scope.themes = data;
+      });
+
+  $scope.is_questions = function(){
+    if($scope.recjected_questions){
+      return $scope.recjected_questions.length;
+    }else{
+      return 0;
+    }
+  };
+  $scope.delete_question = function(question) {
+    $http.post('./php/delete_question.php',{
+          'id': question.id_question
+      }).
+      success(function(){
+        load_scope();
+      });
+    };
+
+  $scope.validation = function(question) {
+    $http.post('./php/update_rejected_question.php',{
+          'id': question.id_question, 
+          'value': question.value_question,
+          'theme_id': question.theme_id,
+          'good_rep': question.good_rep,
+          'bad_rep1': question.bad_rep1,
+          'bad_rep2': question.bad_rep2,
+          'bad_rep3': question.bad_rep3}
+      ).
+      success(function(){
+        load_scope();
+      });
+    };
+  load_scope();
+}]);

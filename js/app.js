@@ -50,6 +50,11 @@ app.config(function($routeProvider) {
         controller: 'ValidateQuestions',
         templateUrl: 'partials/validation_questions.html'
     });
+    $routeProvider.when('/CorrigerQuestions', {
+         title: '- Corriger des Questions',
+        controller: 'RejectedQuestions',
+        templateUrl: 'partials/rejected_questions.html'
+    });
      $routeProvider.when('/EditerQuestions', {
          title: '- Gestion des Questions',
         controller: 'SetQuestions',
@@ -84,7 +89,7 @@ app.config(function($routeProvider) {
   });
 
 app.run(function($rootScope, $location, loginService){
-    var routespermission = ['/RejoindreQuizz','/Classement','/MonCompte','/Game','/ProposerQuestion','/Historique'];  //route that require login
+    var routespermission = ['/CorrigerQuestions','/RejoindreQuizz','/Classement','/MonCompte','/Game','/ProposerQuestion','/Historique'];  //route that require login
     var adminpermission = ['/AjouterQuizz','/Themes','/ValiderQuestions','/EditerQuizz','/EditerMembres','/EditerQuestions','/EditerThemes'];
     var ifloggednopermit = ['/Connexion','/Inscription'];
     $rootScope.$on('$routeChangeStart', function(){
