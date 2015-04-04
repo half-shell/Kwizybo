@@ -4594,7 +4594,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   line-height: 1.42857143;
   text-decoration: none;
   color: #54b733;
-  background-color: #ffffff;
+  background-color: #fbf2d9;
   border: 1px solid #dddddd;
   margin-left: -1px;
 }
@@ -4613,9 +4613,9 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  color: #397b22;
-  background-color: #eeeeee;
-  border-color: #dddddd;
+  color: #ffffff;
+  background-color: #555555;
+  border-color: #555555;
 }
 .pagination > .active > a,
 .pagination > .active > span,
@@ -4636,7 +4636,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > .disabled > a:hover,
 .pagination > .disabled > a:focus {
   color: #777777;
-  background-color: #ffffff;
+  background-color: #eeece7;
   border-color: #dddddd;
   cursor: not-allowed;
 }
@@ -4792,6 +4792,7 @@ a.label:focus {
 .badge:empty {
   display: none;
 }
+
 .btn .badge {
   position: relative;
   top: -1px;
@@ -4806,11 +4807,19 @@ a.badge:focus {
   text-decoration: none;
   cursor: pointer;
 }
+
+a:hover .badge{
+  color: #555555;
+  background-color: #ffffff;
+}
+
 .list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
   color: #54b733;
   background-color: #ffffff;
 }
+
+
 .list-group-item > .badge {
   float: right;
 }

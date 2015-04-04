@@ -16,6 +16,7 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
       $scope.dropdown_margin = 2;
       $scope.dropdown = true;
       $location.path("/Home");
+      $scope.GetQuizz($scope.current_user.id_user);
       $scope.GetNotifGames($scope.current_user.id_user);
       if($scope.current_user.admin == '1'){
         setAdmin();
@@ -38,6 +39,7 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
       if(msg.data != 'not logged'){
         $scope.current_user = msg.data;
         $scope.is_logged = true;
+        $scope.GetQuizz($scope.current_user.id_user);
         $scope.GetNotifGames($scope.current_user.id_user);
         if($scope.current_user.admin == '1'){
           setAdmin();
@@ -93,6 +95,10 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
         new_data = $filter('exact')(data,{current_player: id.toString()});
         $scope.notif = new_data.length;
       });
+  };
+
+  $scope.GetQuizz = function(id){
+    
   };
 }]);
 
