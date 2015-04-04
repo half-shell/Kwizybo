@@ -448,10 +448,20 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
         $scope.questions_to_validate = data.length;
       });
   };
+  
   $scope.index = 0;
   $scope.clear = function(){
     updated_question = {};
   };
+
+  $scope.delete_question = function(question) {
+    $http.post('./php/delete_question.php',{
+          'id': question.id_question
+      }).
+      success(function(){
+        load_scope();
+      });
+    };
 
   $http.post('./php/get_themes.php',{
     'quizz_id': $scope.current_user.quizz_id
@@ -901,7 +911,14 @@ app.controller('RejectedQuestions', ['$scope','$http', function($scope,$http){
         $scope.rejected_count = data.length;
       });
   };
-
+  $scope.delete_question = function(question) {
+    $http.post('./php/delete_question.php',{
+          'id': question.id_question
+      }).
+      success(function(){
+        load_scope();
+      });
+    };
   $http.post('./php/get_themes.php',{
     'quizz_id': $scope.current_user.quizz_id
   }).
