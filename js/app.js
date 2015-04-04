@@ -1,4 +1,4 @@
-app = angular.module('lectorQuizz', ['lectorQuizz.controllers','lectorQuizz.services','lectorQuizz.directives','ngRoute']);
+app = angular.module('lectorQuizz', ['angularUtils.directives.dirPagination','lectorQuizz.controllers','lectorQuizz.services','lectorQuizz.directives','ngRoute']);
 
 app.config(function($routeProvider) {
     $routeProvider.when('/Home', {
@@ -76,7 +76,7 @@ app.config(function($routeProvider) {
         templateUrl: 'partials/join_quizz.html'
     });
      $routeProvider.when('/EditerMembres', {
-         title: '- Gestion des Membres',
+        title: '- Gestion des Membres',
         controller: 'SetUsers',
         templateUrl: 'partials/set_users.html'
     });

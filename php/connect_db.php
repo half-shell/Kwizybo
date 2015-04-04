@@ -1,5 +1,5 @@
 <?php	
- 	$db_name  = 'LectorQuizz';
+ 	$db_name  = 'Kwizybo';
     $hostname = '127.0.0.1';
     $username_db = 'root';
     $password_db = 'gab666cool';

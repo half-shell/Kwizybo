@@ -1,4 +1,4 @@
-# Kwizybo
+# 'Kwizybo'
 
 by Gabriel Franck
 

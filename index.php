@@ -18,7 +18,7 @@
 		</div>
 		<div ng-include="'partials/navigation.html'"></div>
 		<div ng-view class="col-md-offset-{{0+dropdown_margin}}"></div>
-
+		<script src="bower_components/angular-utils-pagination/dirPagination.js"></script> 
 		<script src="js/md5.js"></script> 
 		<!-- Application-->
 		<script src="js/app.js"></script> 

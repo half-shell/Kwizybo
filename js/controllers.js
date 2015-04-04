@@ -448,7 +448,26 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
         $scope.questions_to_validate = data.length;
       });
   };
+
+  $scope.fieldOrder = null;
+  $scope.directionOrder = null;
+  $scope.setFieldOrder = function(field){
+    if($scope.fieldOrder == field){
+      $scope.directionOrder = !$scope.directionOrder;
+    }else{
+      $scope.fieldOrder = field;
+      $scope.directionOrder = false;
+    }
+  };
   
+  $scope.cssOrder = function(field){
+    return{
+      'glyphicon': $scope.fieldOrder == field,
+      'glyphicon-chevron-up': $scope.fieldOrder == field && !$scope.directionOrder,
+      'glyphicon-chevron-down': $scope.fieldOrder == field && $scope.directionOrder
+    }
+  };
+
   $scope.index = 0;
   $scope.clear = function(){
     updated_question = {};
@@ -605,6 +624,27 @@ app.controller('SetThemes', ['$scope','$http', function($scope,$http){
       $scope.quizz = data;
   });
 
+
+  $scope.fieldOrder = null;
+  $scope.directionOrder = null;
+  $scope.setFieldOrder = function(field){
+    if($scope.fieldOrder == field){
+      $scope.directionOrder = !$scope.directionOrder;
+    }else{
+      $scope.fieldOrder = field;
+      $scope.directionOrder = false;
+    }
+  };
+
+  $scope.cssOrder = function(field){
+    return{
+      'glyphicon': $scope.fieldOrder == field,
+      'glyphicon-chevron-up': $scope.fieldOrder == field && !$scope.directionOrder,
+      'glyphicon-chevron-down': $scope.fieldOrder == field && $scope.directionOrder
+    };
+  };
+
+
   $scope.validation = function(theme) {
     $http.post('./php/update_themes.php',{
           'id': theme.id_theme, 
@@ -630,6 +670,25 @@ app.controller('SetQuestions', ['$scope','$http', function($scope,$http){
       success(function(data) {
         $scope.questions = data;
       });
+  };
+
+    $scope.fieldOrder = null;
+  $scope.directionOrder = null;
+  $scope.setFieldOrder = function(field){
+    if($scope.fieldOrder == field){
+      $scope.directionOrder = !$scope.directionOrder;
+    }else{
+      $scope.fieldOrder = field;
+      $scope.directionOrder = false;
+    }
+  };
+  
+  $scope.cssOrder = function(field){
+    return{
+      'glyphicon': $scope.fieldOrder == field,
+      'glyphicon-chevron-up': $scope.fieldOrder == field && !$scope.directionOrder,
+      'glyphicon-chevron-down': $scope.fieldOrder == field && $scope.directionOrder
+    };
   };
 
   $http.post('./php/get_themes.php',{
@@ -700,6 +759,24 @@ app.controller('SetQuizz', ['$scope','$http', function($scope,$http){
       });
     };
   load_scope();
+  $scope.fieldOrder = null;
+  $scope.directionOrder = null;
+  $scope.setFieldOrder = function(field){
+    if($scope.fieldOrder == field){
+      $scope.directionOrder = !$scope.directionOrder;
+    }else{
+      $scope.fieldOrder = field;
+      $scope.directionOrder = false;
+    }
+  };
+  
+  $scope.cssOrder = function(field){
+    return{
+      'glyphicon': $scope.fieldOrder == field,
+      'glyphicon-chevron-up': $scope.fieldOrder == field && !$scope.directionOrder,
+      'glyphicon-chevron-down': $scope.fieldOrder == field && $scope.directionOrder
+    };
+  };
 }]);
 
 app.controller('Ladder', ['$scope','$http', function($scope,$http){
@@ -818,6 +895,24 @@ app.controller('SetUsers', ['$scope','$http', function($scope,$http){
         $scope.users = data;
       });
   };
+    $scope.fieldOrder = null;
+  $scope.directionOrder = null;
+  $scope.setFieldOrder = function(field){
+    if($scope.fieldOrder == field){
+      $scope.directionOrder = !$scope.directionOrder;
+    }else{
+      $scope.fieldOrder = field;
+      $scope.directionOrder = false;
+    }
+  };
+  
+  $scope.cssOrder = function(field){
+    return{
+      'glyphicon': $scope.fieldOrder == field,
+      'glyphicon-chevron-up': $scope.fieldOrder == field && !$scope.directionOrder,
+      'glyphicon-chevron-down': $scope.fieldOrder == field && $scope.directionOrder
+    };
+  };
 
   $scope.validation = function(users){
     $http.post('./php/update_pass_user.php',{
@@ -833,6 +928,8 @@ app.controller('SetUsers', ['$scope','$http', function($scope,$http){
     };
   load_scope();
 }]);
+
+
 
 app.controller('MyAccount', ['$scope','$http', function($scope,$http){
   $scope.is_connected();
@@ -910,6 +1007,24 @@ app.controller('RejectedQuestions', ['$scope','$http', function($scope,$http){
         $scope.recjected_questions = data;
         $scope.rejected_count = data.length;
       });
+  };
+  $scope.fieldOrder = null;
+  $scope.directionOrder = null;
+  $scope.setFieldOrder = function(field){
+    if($scope.fieldOrder == field){
+      $scope.directionOrder = !$scope.directionOrder;
+    }else{
+      $scope.fieldOrder = field;
+      $scope.directionOrder = false;
+    }
+  };
+  
+  $scope.cssOrder = function(field){
+    return{
+      'glyphicon': $scope.fieldOrder == field,
+      'glyphicon-chevron-up': $scope.fieldOrder == field && !$scope.directionOrder,
+      'glyphicon-chevron-down': $scope.fieldOrder == field && $scope.directionOrder
+    };
   };
   $scope.delete_question = function(question) {
     $http.post('./php/delete_question.php',{
