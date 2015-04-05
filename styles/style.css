@@ -28,6 +28,9 @@ body {
 	background-color: #fdbd62 ;
 
 }
+.collapse.in {
+      height: auto !important;
+}
 
 div .image-bg{
 	height: 100%;

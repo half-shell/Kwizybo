@@ -3,15 +3,17 @@
 </div >
 <div class="container col-md-12 ">
 	<div>
-		<div class="text-center well  col-md-4 col-md-offset-4">
+		<div class="text-center well  col-md-4 col-md-offset-4" style="padding-bottom:5px;">
 		<h3 style="margin-top: -5px">Selectionner un Quizz</h3>
-		<select class="form-control" ng-model="quizz_filter" ng-options="qz.id_quizz as qz.name_quizz for qz in quizz">
+		<select class="form-control" ng-model="quizz_filter" ng-options="qz.name_quizz as qz.name_quizz for qz in quizz">
 			<option value=''>Selectionner un quizz</option>
 		</select>
 		<br/>
 		<div class="form-group text-left" ng-show="quizz_filter != undefined">
 			<label class="control-label">Rechercher</label>
 			<input type="text" ng-model="searchFilter" class="form-control" />
+			<br/>
+			<label>Vous avez <b style="font-size:20px">{{themes.length}}</b> thèmes pour <b style="font-size:18px">{{quizz_filter}}</b>.</label>
 		</div>
 		</div>
 
@@ -30,7 +32,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr dir-paginate="theme in themes | filter:{quizz_id_themes: quizz_filter}: quizz_filter != '' | filter: searchFilter| orderBy:fieldOrder:directionOrder| itemsPerPage: 10" ng-init="updated_theme = theme;">
+				<tr dir-paginate="theme in themes | filter:{name_quizz: quizz_filter}: quizz_filter != '' | filter: searchFilter| orderBy:fieldOrder:directionOrder| itemsPerPage: 10" ng-init="updated_theme = theme;">
 					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text" ng-model="updated_theme.name_theme" rows="2" style="resize: none;"></textarea></td>
 					<td onchange="this.className = 'form-group has-success'"><textarea onchange="this.style.backgroundColor = '#e6ffe2'" class="form-control" type="text"  ng-model="updated_theme.description_theme" rows="2" style="resize: none;"></textarea></td>
 					<td><h3 style="margin-top: 10px;">{{updated_theme.count_questions}}</h3></td>

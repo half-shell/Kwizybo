@@ -4,6 +4,8 @@
 <div class="form-group text-left well col-md-4 col-md-offset-4" ng-show="is_questions() >= 1">
 	<label class="control-label">Rechercher</label>
 	<input type="text" ng-model="searchFilter" class="form-control" />
+	<br/>
+	<label>Il vous reste <b style="font-size:20px">{{recjected_questions.length}}</b> questions à corriger.</label>
 </div>
 <div class="container col-md-12">
 	<div>
