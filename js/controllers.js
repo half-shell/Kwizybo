@@ -120,7 +120,6 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
   }).
       success(function(data) {
         $scope.themes = data;
-        console.log(data);
         $scope.themes_len = data.length;
       });
 
