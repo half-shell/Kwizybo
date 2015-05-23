@@ -47,7 +47,7 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
       };
     });
   };
-  $scope.is_connected(); 
+  $scope.is_connected();
 
   $scope.logout=function(){
     loginService.logout();
@@ -98,7 +98,7 @@ app.controller('Navigation', ['$scope','$http','$location','$filter','loginServi
   };
 
   $scope.GetQuizz = function(id){
-    
+
   };
 }]);
 
@@ -130,10 +130,10 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
           // here the data from the api is assigned to a variable named users
           for (var i = 0 ; i < data.length; i++) {
             $scope.questions.push({
-              id: data[i].id_question, 
+              id: data[i].id_question,
               theme_id: data[i].theme_id,
               name_theme:  data[i].name_theme,
-              value: data[i].value_question, 
+              value: data[i].value_question,
               reponses:[
                 {name: data[i].good_rep, valid: true,},
                 {name: data[i].bad_rep1, valid: false,},
@@ -143,7 +143,7 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
             })
           };
       });
-  
+
 
   ThemeRandom = function(){
     $scope.randThemes = [];
@@ -197,7 +197,7 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
   };
 
   playQuestion = function(theme_id){
-    if($scope.turn < 3){ 
+    if($scope.turn < 3){
       $scope.launched = true;
       $scope.playings = [$scope.all_playings[$scope.turn]];
       launch_timer(30);
@@ -231,7 +231,7 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
     toto.then(function(data) {
         $scope.playing_games = data;
         //att
-        
+
         for (var i = 0; i < $scope.playing_games.length; i++) {
           if($scope.playing_games[i].round >= (total_round*2)){
             console.log((total_round*2));
@@ -266,9 +266,9 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
     toto.then(function(data){
       $scope.current_game = data[0];
       $scope.current_game.round = Number($scope.current_game.round);
-      $scope.current_game.score_1 = Number($scope.current_game.score_1); 
+      $scope.current_game.score_1 = Number($scope.current_game.score_1);
       $scope.current_game.score_2 = Number($scope.current_game.score_2);
-      $scope.PlayRound(); 
+      $scope.PlayRound();
     });
   };
 
@@ -370,7 +370,7 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
       $scope.score += 1;
       $scope.scoreRound += 1;
       $scope.falseRep = $scope.turn - $scope.scoreRound;
-      $scope.End($scope.turn); 
+      $scope.End($scope.turn);
       playQuestion($scope.currentTheme);
     }else{
       $scope.turn += 1;
@@ -401,7 +401,7 @@ app.controller('AddQuestions', ['$scope', '$http', function($scope,$http) {
     $http.post('./php/add_question.php',{
       'theme_id': data.theme_id,
       'value': data.value,
-      'good_rep': data.good_rep, 
+      'good_rep': data.good_rep,
       'bad_rep1': data.bad_rep1,
       'bad_rep2': data.bad_rep2,
       'bad_rep3': data.bad_rep3
@@ -436,6 +436,15 @@ app.controller('GameStory', ['$scope', '$http','gameStoryService', function($sco
       toto.then(function(data) {
         $scope.finished_games = data;
         $scope.len_finish = $scope.finished_games.length;
+        $scope.finished_games.forEach(function(entry){
+          if(entry.score_1 > entry.score_2){
+            entry.winner_id = entry.user_id_1;
+          }else if(entry.score_1 < entry.score_2){
+            entry.winner_id = entry.user_id_2;
+          }else{
+            entry.winner_id = "none";
+          };
+        });
       });
     };
     if($scope.is_logged) $scope.GetFinishedGames($scope.current_user.id_user);
@@ -464,7 +473,7 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
       $scope.directionOrder = false;
     }
   };
-  
+
   $scope.cssOrder = function(field){
     return{
       'glyphicon': $scope.fieldOrder == field,
@@ -512,7 +521,7 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
 
   $scope.validation = function(question) {
     $http.post('./php/validate_question.php',{
-          'id': question.id_question, 
+          'id': question.id_question,
           'value': question.value_question,
           'theme_id': question.theme_id,
           'good_rep': question.good_rep,
@@ -531,7 +540,7 @@ app.controller('ValidateQuestions', ['$scope','$http', function($scope,$http){
     };
     $scope.reject = function(question) {
     $http.post('./php/reject_question.php',{
-          'id': question.id_question, 
+          'id': question.id_question,
           'reject_reason': question.reject_reason
          }
       ).
@@ -652,7 +661,7 @@ app.controller('SetThemes', ['$scope','$http', function($scope,$http){
 
   $scope.validation = function(theme) {
     $http.post('./php/update_themes.php',{
-          'id': theme.id_theme, 
+          'id': theme.id_theme,
           'name_theme': theme.name_theme,
           'description_theme': theme.description_theme,
           'playable': theme.playable
@@ -687,7 +696,7 @@ app.controller('SetQuestions', ['$scope','$http', function($scope,$http){
       $scope.directionOrder = false;
     }
   };
-  
+
   $scope.cssOrder = function(field){
     return{
       'glyphicon': $scope.fieldOrder == field,
@@ -713,7 +722,7 @@ app.controller('SetQuestions', ['$scope','$http', function($scope,$http){
           id_theme: '!'
         })
       });
- 
+
   $scope.delete_question = function(question) {
     $http.post('./php/delete_question.php',{
           'id': question.id_question
@@ -725,7 +734,7 @@ app.controller('SetQuestions', ['$scope','$http', function($scope,$http){
 
   $scope.validation = function(question) {
     $http.post('./php/validate_question.php',{
-          'id': question.id_question, 
+          'id': question.id_question,
           'value': question.value_question,
           'theme_id': question.theme_id,
           'good_rep': question.good_rep,
@@ -753,7 +762,7 @@ app.controller('SetQuizz', ['$scope','$http', function($scope,$http){
 
   $scope.validation = function(quizz) {
     $http.post('./php/update_quizz.php',{
-          'id': quizz.id_quizz, 
+          'id': quizz.id_quizz,
           'name_quizz': quizz.name_quizz
         }
       ).
@@ -774,7 +783,7 @@ app.controller('SetQuizz', ['$scope','$http', function($scope,$http){
       $scope.directionOrder = false;
     }
   };
-  
+
   $scope.cssOrder = function(field){
     return{
       'glyphicon': $scope.fieldOrder == field,
@@ -910,7 +919,7 @@ app.controller('SetUsers', ['$scope','$http', function($scope,$http){
       $scope.directionOrder = false;
     }
   };
-  
+
   $scope.cssOrder = function(field){
     return{
       'glyphicon': $scope.fieldOrder == field,
@@ -921,7 +930,7 @@ app.controller('SetUsers', ['$scope','$http', function($scope,$http){
 
   $scope.validation = function(users){
     $http.post('./php/update_pass_user.php',{
-          'id': users.id_user, 
+          'id': users.id_user,
           'password': '1234'
         }
       ).
@@ -946,7 +955,7 @@ app.controller('MyAccount', ['$scope','$http', function($scope,$http){
     $scope.bad_infos = false;
     if(user){
       $http.post('./php/update_username.php',{
-          'id': $scope.current_user.id_user, 
+          'id': $scope.current_user.id_user,
           'pseudo': user.pseudo
         }
       ).
@@ -975,7 +984,7 @@ app.controller('MyAccount', ['$scope','$http', function($scope,$http){
       if(CryptoJS.MD5(user.old_pass) == $scope.current_user.password){
         if(user.new_pass == user.new_pass_conf){
           $http.post('./php/update_pass_user.php',{
-                'id': $scope.current_user.id_user, 
+                'id': $scope.current_user.id_user,
                 'password': user.new_pass
               }
             ).
@@ -1000,7 +1009,7 @@ app.controller('MyAccount', ['$scope','$http', function($scope,$http){
         $scope.msg = "Tous les champs ne sont pas remplis.";
     };
   };
-}]);  
+}]);
 
 app.controller('RejectedQuestions', ['$scope','$http', function($scope,$http){
   $scope.is_connected();
@@ -1023,7 +1032,7 @@ app.controller('RejectedQuestions', ['$scope','$http', function($scope,$http){
       $scope.directionOrder = false;
     }
   };
-  
+
   $scope.cssOrder = function(field){
     return{
       'glyphicon': $scope.fieldOrder == field,
@@ -1064,7 +1073,7 @@ app.controller('RejectedQuestions', ['$scope','$http', function($scope,$http){
 
   $scope.validation = function(question) {
     $http.post('./php/update_rejected_question.php',{
-          'id': question.id_question, 
+          'id': question.id_question,
           'value': question.value_question,
           'theme_id': question.theme_id,
           'good_rep': question.good_rep,

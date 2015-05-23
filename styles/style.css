@@ -1,6 +1,6 @@
-body { 
-	padding-top: 70px; 
-	margin-left: 180px; 
+body {
+	padding-top: 70px;
+	margin-left: 180px;
 }
 
 .bg-text{
@@ -45,4 +45,19 @@ div .image-bg{
  	/*box-shadow: 0 5px 10px rgba(0, 0, 0, .55);*/
 	color: #fff;
 	z-index: 2;
+}
+
+.warning{
+  background-color: #FFEDBD !important;
+  border: 1px solid #FF9214 !important;
+}
+
+.danger{
+  background-color: #FFBDBD !important;
+  border: 1px solid #FF3D3D !important;
+}
+
+.success{
+  background-color: #C3FFBD !important;
+  border: 1px solid #009d27 !important;
 }

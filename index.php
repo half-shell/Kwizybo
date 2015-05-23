@@ -9,8 +9,7 @@
 		<link href="styles/style.css" rel="stylesheet">
 		<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-		<script src="angular/jquery.js"></script>
-		<script src="angular/angular.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 	</head>
 	<body ng-controller="Navigation">
 		<div class="bg-text noselect">
@@ -18,15 +17,17 @@
 		</div>
 		<div ng-include="'partials/navigation.html'"></div>
 		<div ng-view class="col-md-offset-{{0+dropdown_margin}}"></div>
-		<script src="bower_components/angular-utils-pagination/dirPagination.js"></script> 
-		<script src="js/md5.js"></script> 
+
+		<script src="bower_components/angular-utils-pagination/dirPagination.js"></script>
+		<script src="js/md5.js"></script>
 		<!-- Application-->
-		<script src="js/app.js"></script> 
+		<script src="js/app.js"></script>
 		<script src="js/controllers.js"></script>
 		<script src="js/directives.js"></script>
 		<script src="js/services.js"></script>
 		<!-- jQuery -->
-		<script src="angular/angular-route.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-route.js"></script>
 		<!-- Bootstrap JavaScript -->
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 	</body>
