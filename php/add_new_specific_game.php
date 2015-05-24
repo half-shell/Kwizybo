@@ -17,7 +17,7 @@
 	  $pseudo2 = $result[0]['pseudo'];
 	  $id_game = uniqid();
 
-	  $sql2 = "INSERT INTO games (id_game,user_id_1, user_id_2,user_name_1,user_name_2, score_1, score_2, round ,current_player, is_finished) VALUES ('$id_game','$id','$id2','$pseudo','$pseudo2','0','0','0','$id','0')";
+	  $sql2 = "INSERT INTO games (id_game,user_id_1, user_id_2, score_1, score_2, round ,current_player, is_finished) VALUES ('$id_game','$id','$id2','0','0','0','$id','0')";
 	  $stmt2 = $dbh->prepare($sql2);
 	  $stmt2->execute();
 	  $result2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);

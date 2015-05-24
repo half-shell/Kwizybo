@@ -234,7 +234,7 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
         var date_now = Date.now();
         for (var i = 0; i < $scope.playing_games.length; i++) {
           var date_game = Date.parse($scope.playing_games[i].creation_game);
-          if($scope.playing_games[i].round >= (total_round*2)|| date_now-date_game > 10*a_day){
+          if($scope.playing_games[i].round >= (total_round*2)|| date_now-date_game > 4*a_day){
             new_data_game = $scope.playing_games[i];
             new_data_game.is_finished = 1;
             var tutu = gameService.update_current_game(new_data_game);
