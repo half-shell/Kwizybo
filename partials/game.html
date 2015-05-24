@@ -1,7 +1,16 @@
 	<div class="container col-md-10 col-md-offset-1">
 		<div ng-show="viewTheme == false && launched == false && button_end_game == false && round < 4 && current_user.quizz_id != undefined && themes_len >= 2" class="text-center well  col-md-6 col-md-offset-3" >
-			<button type="button" ng-class="{disabled: playing_games.length >= 5}" class="btn btn-success btn-lg" ng-show="round == 0" ng-click='NewGame(current_user.id_user,current_user.pseudo,current_user.quizz_id)'>Nouvelle Partie </button>
-		</div>
+			<button type="button" ng-class="{disabled: playing_games.length >= 5}" class="btn btn-success btn-lg" ng-show="round == 0" ng-click='NewGame(current_user.id_user,current_user.pseudo,current_user.quizz_id)'>Partie Rapide</button>
+            <div ng-show="bad_pseudo" class="alert alert-danger" style="margin-top:15px" role="alert">{{msg}}</div>
+            <form role="form" style="margin-top:15px">
+                <div class="input-group" ng-class="{'has-error': bad_pseudo}" >
+                    <input class="form-control" type="text" ng-model="pseudo_2" placeholder="Chercher un joueur" style="z-index=0;"/>
+                    <span class="input-group-btn">
+			            <button type="button" ng-class="{disabled: !pseudo_2}" class="btn btn-success" ng-show="round == 0" ng-click='NewSpecificGame(current_user.id_user,current_user.pseudo,current_user.quizz_id,pseudo_2)'>Lancer Partie</button>
+                    </span>
+                </div>
+            </form>
+        </div>
 		<div class="well text-center col-md-8 col-md-offset-2" ng-show="current_user.quizz_id == undefined">
 			<h3  style="margin-top:-10px;">Veuillez vous inscrire à un quizz avant de jouer</h3>
 			<a type="button" href="#/RejoindreQuizz" class="btn btn-success">Rejoindre un quizz</a>

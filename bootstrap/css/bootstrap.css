@@ -2972,7 +2972,7 @@ select[multiple].form-group-lg .form-control {
 .btn.focus,
 .btn:active.focus,
 .btn.active.focus {
-  
+
 }
 .btn:hover,
 .btn:focus,
@@ -3687,7 +3687,7 @@ tbody.collapse.in {
 }
 .input-group .form-control {
   position: relative;
-  z-index: 2;
+  z-index: 0;
   float: left;
   width: 100%;
   margin-bottom: 0;
@@ -3946,7 +3946,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   float: left;
 }
 .nav-pills > h5{
-  color: #33b733; 
+  color: #33b733;
 }
 .nav-pills > li > a {
   color: #434343;

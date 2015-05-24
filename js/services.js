@@ -13,11 +13,11 @@ app.factory('loginService',function($http,$q, $location, sessionService){
 					sessionService.set('uid',uid);
 					// sessionService.set('id-user',data_user.id_user);
 					defer.resolve(data_user);
-				}	       
+				}
 				else  {
 					defer.reject(msg.data);
 					$location.path('/Connexion');
-				}				   
+				}
 			});
 			return defer.promise;
 		},
@@ -47,6 +47,14 @@ app.factory('gameService',function($http,$q, $location, sessionService){
 		new_game:function(id_user,pseudo,quizz_id){
 			var defer = $q.defer();
 			var promise = $http.post('./php/add_new_game.php',{'id': id_user,'pseudo': pseudo, 'quizz_id': quizz_id}); //send data to user.php
+			promise.then(function(msg){
+				defer.resolve(msg.data);
+			});
+			return defer.promise;
+		},
+    new_specific_game:function(id_user,pseudo,quizz_id,pseudo_2){
+			var defer = $q.defer();
+			var promise = $http.post('./php/add_new_specific_game.php',{'id': id_user,'pseudo': pseudo, 'quizz_id': quizz_id, 'pseudo_2': pseudo_2}); //send data to user.php
 			promise.then(function(msg){
 				defer.resolve(msg.data);
 			});

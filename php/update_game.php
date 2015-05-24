@@ -11,7 +11,7 @@
         $current_player =  $request['current_player'];
         $is_finished =  $request['is_finished'];
 
-        $sql = "UPDATE games SET score_1 = '$score_1', score_2 = '$score_2', round = '$round', current_player = '$current_player', is_finished = '$is_finished' WHERE id_game = '$id'";
+        $sql = "UPDATE games SET score_1 = '$score_1', score_2 = '$score_2', round = '$round', current_player = '$current_player', is_finished = '$is_finished', creation_game = CURRENT_TIMESTAMP WHERE id_game = '$id'";
         $stmt = $dbh->prepare($sql);
         $stmt->execute();
         echo $sql;

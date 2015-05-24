@@ -115,6 +115,7 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
   $scope.button_end_game = false;
   $scope.viewTheme = false;
   $scope.questions = [];
+  $scope.bad_pseudo = false;
   $http.post('./php/get_valid_themes.php',{
     'quizz_id': $scope.current_user.quizz_id
   }).
@@ -191,7 +192,6 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
         $scope.reponseCheck(false);
       }else{
         $scope.timer ++;
-        console.log($scope.timer);
       };
     }, 500);
   };
@@ -230,11 +230,11 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
     var toto = gameService.get_playing_games(id);
     toto.then(function(data) {
         $scope.playing_games = data;
-        //att
-
+        var a_day = 86400000;
+        var date_now = Date.now();
         for (var i = 0; i < $scope.playing_games.length; i++) {
-          if($scope.playing_games[i].round >= (total_round*2)){
-            console.log((total_round*2));
+          var date_game = Date.parse($scope.playing_games[i].creation_game);
+          if($scope.playing_games[i].round >= (total_round*2)|| date_now-date_game > 10*a_day){
             new_data_game = $scope.playing_games[i];
             new_data_game.is_finished = 1;
             var tutu = gameService.update_current_game(new_data_game);
@@ -253,12 +253,33 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
   if($scope.is_logged) $scope.FindLeavedGame($scope.current_user.id_user);
 
   $scope.NewGame = function(id,pseudo,quizz_id){
-
     var toto = gameService.new_game(id,pseudo,quizz_id);
     toto.then(function(data){
         $scope.id_current_game = data;
         $scope.ContinueGame($scope.id_current_game);
       });
+  };
+
+  $scope.NewSpecificGame = function(id,pseudo,quizz_id,pseudo_2){
+    $scope.bad_pseudo = false;
+    for (var i = 0; i < $scope.playing_games.length; i++) {
+      if(pseudo_2 == $scope.playing_games[i].user_name_2 || pseudo_2 == $scope.playing_games[i].user_name_1){
+        $scope.msg = "Vous avez déja une partie en cours avec ce joueur.";
+        $scope.bad_pseudo = true;
+      };
+    };
+    if($scope.bad_pseudo == false){
+      var toto = gameService.new_specific_game(id,pseudo,quizz_id,pseudo_2);
+      toto.then(function(data){
+        $scope.id_current_game = data;
+        if(data == "cantfind"){
+          $scope.msg = "Ce joueur n'existe pas !";
+          $scope.bad_pseudo = true;
+        }else{
+          $scope.ContinueGame($scope.id_current_game);
+        };
+      });
+    };
   };
 
   $scope.ContinueGame = function(id){
