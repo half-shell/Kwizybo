@@ -13,7 +13,7 @@
 		<div ng-show="viewTheme == false && launched == false && button_end_game == false && playing_games.length > 0" class="text-center well  col-md-12" ng->
 			<h3  style="margin-top:-10px;">Parties En Cours</h3>
 			<div ng-repeat="playing_game in playing_games track by playing_game.id_game">
-				<div class="row panel" style="padding:3px; padding-top: 0px; border: 1px solid #009d27; margin:10px">
+				<div ng-class="current_user.id_user == playing_game.current_player ? 'success' : 'warning'" class="row panel" style="padding:3px; padding-top: 0px; margin:10px">
 					<div class="col-md-5 col-sm-5" style="margin-top:-15px;">
 						<h2>
 							<span ng-class="playing_game.user_id_1 == current_user.id_user ? 'label-primary' : 'label-default'" class="label">{{playing_game.user_name_1}}</span>
