@@ -8,11 +8,11 @@
 	<div class="text-center well col-md-12" ng-show="len_finish > 0">
 		<div ng-repeat="finished_game in finished_games track by finished_game.id_game">
             <div ng-class="finished_game.winner_id == current_user.id_user ? 'success' : finished_game.winner_id == 'none' ? 'warning' : 'danger'" class="row panel" style="padding:3px; padding-top: 0px; margin:10px;">
-			    <div class="col-md-3" style="margin-top:-12px;"><h3><span ng-class="finished_game.user_id_1 == current_user.id_user ? 'label-primary' : 'label-default'" class="label">{{finished_game.user_name_1}}</span></h3></div>
+			    <div class="col-md-3" style="margin-top:-12px;"><h3 class="pull-left"><span ng-class="finished_game.user_id_1 == current_user.id_user ? 'label-primary' : 'label-default'" class="label">{{finished_game.user_name_1}}</span></h3></div>
 			    <div class="col-md-6">
-			    	<div class="btn-group " style="margin-top:10px;">
+			    	<div class="btn-group " style="margin-top:6px;">
 			    		<button class="btn disabled" ng-class="finished_game.score_1 > finished_game.score_2 ? 'btn-success' : finished_game.score_1 < 	finished_game.score_2 ? 'btn-danger' : 'btn-warning'">{{finished_game.score_1}}</button>
-			    		<button type="button" class="btn btn-default disabled">
+			    		<button type="button" style="width: 250px" class="btn btn-default disabled">
 			    			<b ng-show="finished_game.score_1 > finished_game.score_2">Vainqueur : {{finished_game.user_name_1}}</b>
 			    			<b ng-show="finished_game.score_1 == finished_game.score_2">Partie Nulle</b>
 			    			<b ng-show="finished_game.score_1 < finished_game.score_2">Vainqueur : {{finished_game.user_name_2}}</b>
@@ -20,7 +20,7 @@
 			    		<button class="btn disabled" ng-class="finished_game.score_1 < finished_game.score_2 ? 'btn-success' : finished_game.score_1 > 	finished_game.score_2 ? 'btn-danger' : 'btn-warning'">{{finished_game.score_2}}</button>
 			    	</div>
 			    </div>
-			    <div class="col-md-3" style="margin-top:-12px;"><h3><span ng-class="finished_game.user_id_2 == current_user.id_user ? 'label-primary' : 'label-default'" class="label">{{finished_game.user_name_2}}</span></h3></div>
+			    <div class="col-md-3" style="margin-top:-12px;"><h3 class="pull-right"><span ng-class="finished_game.user_id_2 == current_user.id_user ? 'label-primary' : 'label-default'" class="label">{{finished_game.user_name_2}}</span></h3></div>
             </div>
 		</div>
 	</div>

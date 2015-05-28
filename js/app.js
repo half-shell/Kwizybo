@@ -1,4 +1,4 @@
-app = angular.module('lectorQuizz', ['angularUtils.directives.dirPagination','lectorQuizz.controllers','lectorQuizz.services','lectorQuizz.directives','ngRoute']);
+app = angular.module('lectorQuizz',['ui.select','ngSanitize','angularUtils.directives.dirPagination','lectorQuizz.controllers','lectorQuizz.services','lectorQuizz.directives','ngRoute']);
 
 app.config(function($routeProvider) {
     $routeProvider.when('/Home', {

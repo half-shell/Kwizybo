@@ -106,7 +106,7 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
   var timer;
   $scope.is_connected();
   $scope.Math=Math;
-  total_round = 3;
+  var total_round = 3;
   $scope.round = 0;
   $scope.score = 0;
   $scope.savedScore = [];
@@ -124,63 +124,68 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
         $scope.themes_len = data.length;
       });
 
-  $http.post('./php/get_questions.php',{
+  $http.post('./php/get_users.php',{
     'quizz_id': $scope.current_user.quizz_id
   }).
       success(function(data) {
-          // here the data from the api is assigned to a variable named users
-          for (var i = 0 ; i < data.length; i++) {
-            $scope.questions.push({
-              id: data[i].id_question,
-              theme_id: data[i].theme_id,
-              name_theme:  data[i].name_theme,
-              value: data[i].value_question,
-              reponses:[
-                {name: data[i].good_rep, valid: true,},
-                {name: data[i].bad_rep1, valid: false,},
-                {name: data[i].bad_rep2, valid: false,},
-                {name: data[i].bad_rep3, valid: false,},
-              ]
-            })
-          };
+        $scope.users_list = data;
       });
 
 
   ThemeRandom = function(){
     $scope.randThemes = [];
+    $scope.randQuestions = [];
     for (var i = 0; i < 2; i++ ){
       randt = Math.floor((Math.random() * $scope.themes.length));
       if($.inArray($scope.themes[randt],$scope.randThemes) == -1){
         $scope.randThemes.push($scope.themes[randt]);
+
+        $http.post('./php/get_rand_questions.php',{
+          'quizz_id': $scope.current_user.quizz_id,
+          'theme_id': $scope.themes[randt].id_theme
+        }).
+          success(function(data) {
+              // here the data from the api is assigned to a variable named users
+              for (var i = 0 ; i < data.length; i++) {
+                $scope.randQuestions.push({
+                  id: data[i].id_question,
+                  theme_id: data[i].theme_id,
+                  name_theme:  data[i].name_theme,
+                  value: data[i].value_question,
+                  reponses:[
+                    {name: data[i].good_rep, valid: true,},
+                    {name: data[i].bad_rep1, valid: false,},
+                    {name: data[i].bad_rep2, valid: false,},
+                    {name: data[i].bad_rep3, valid: false,},
+                  ]
+                })
+              };
+          });
+
       }else{
         i-- ;
       }
     }
   };
 
-  NoQuestionRepeat = function(theme_id){
-    $scope.randQuestions = [];
-    titi = themeQuestions(theme_id);
-    for (var i = 0; i < 3; i++ ){
-      randq = Math.floor((Math.random() * titi.length));
-      if($.inArray(titi[randq],$scope.randQuestions) == -1){
-        $scope.randQuestions.push(titi[randq]);
-      }else{
-        i-- ;
-      }
-    }
-    return $scope.randQuestions;
-  };
-
-  themeQuestions = function(theme_id) {
+  setChooseTheme = function(theme_id){
     $scope.questionsThemed = [];
-    for (var i = 0 ; i < $scope.questions.length; i++)
-      if($scope.questions[i].theme_id == theme_id){
-        $scope.questionsThemed.push($scope.questions[i]);
+    for (var i = 0 ; i < $scope.randQuestions.length; i++)
+      if($scope.randQuestions[i].theme_id == theme_id){
+        $scope.questionsThemed.push($scope.randQuestions[i]);
       }
-
     return $scope.questionsThemed;
   };
+
+  // themeQuestions = function(theme_id) 
+    // $scope.questionsThemed = [];
+    // for (var i = 0 ; i < $scope.questions.length; i++)
+    //   if($scope.questions[i].theme_id == theme_id){
+    //     $scope.questionsThemed.push($scope.questions[i]);
+    //   }
+
+    // return $scope.questionsThemed;
+  // };
 
   launch_timer = function(time){
     $scope.timer = 0;
@@ -212,7 +217,7 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
     $scope.currentTheme = theme_id;
     $scope.launched = true;
     $scope.playings = [];
-    $scope.all_playings = NoQuestionRepeat(theme_id);
+    $scope.all_playings = setChooseTheme(theme_id);
     playQuestion(theme_id);
   };
 
@@ -234,7 +239,7 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
         var date_now = Date.now();
         for (var i = 0; i < $scope.playing_games.length; i++) {
           var date_game = Date.parse($scope.playing_games[i].creation_game);
-          if($scope.playing_games[i].round >= (total_round*2)|| date_now-date_game > 4*a_day){
+          if($scope.playing_games[i].round >= (total_round*2) || date_now-date_game > 4*a_day){
             new_data_game = $scope.playing_games[i];
             new_data_game.is_finished = 1;
             var tutu = gameService.update_current_game(new_data_game);

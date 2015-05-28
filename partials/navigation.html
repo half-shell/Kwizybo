@@ -17,7 +17,9 @@
 			<a href="#/Classement"><span class="glyphicon glyphicon-star-empty"></span>&nbspClassement</a>
 		</li>
 	</ul>
+
 	<ul ng-show="admin" class="nav nav-pills nav-stacked" style="padding-bottom:5px;">
+		<hr style="margin: 10px; border-color: #B9D9B4;">
 		<h5 style="margin-left: 20px;">Outils de Gestion</h5>
 		<li ng-class="{active: active('/ValiderQuestions')}">
 			<a href="#/ValiderQuestions" ><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>&nbsp&nbspValider des Questions&nbsp&nbsp<span data-ng-show="questions_to_validate >= 1"  class="badge">{{questions_to_validate}}</span></a>
@@ -48,10 +50,10 @@
 
 		<a class="navbar-brand" href="#/Home"><span class="glyphicon glyphicon-education"></span>&nbspKwizybo<p style="margin-top: -5px;font-size: 12px;">Alpha 1.2</p></a>
 		<li>
-			<button ng-class="{active: dropdown}" style="margin-top:12px; color: #009d27; padding:5px; padding-top:1px;padding-bottom: 0;" class="btn btn-default" role="button" ng-show="is_logged == true" ng-class="{active: active('/Game')}" ng-click="changeDropdown()">
-				<span style="font-size: 20px;" class="glyphicon glyphicon-menu-hamburger"></span>
-				<span style="font-size: 10px;" ng-show="dropdown == false" class="glyphicon glyphicon-triangle-bottom"></span>
-				<span style="font-size: 10px;" ng-show="dropdown" class="glyphicon glyphicon-triangle-top"></span>
+			<button ng-class="{active: dropdown}" style="margin-top:15px; color: #009d27; padding:5px; padding-top:1px;padding-bottom: 0;" class="btn btn-default" role="button" ng-show="is_logged == true" ng-class="{active: active('/Game')}" ng-click="changeDropdown()">
+				<span style="font-size: 17px;" class="glyphicon glyphicon-menu-hamburger pull-left"></span>
+				<span style="font-size: 8px;margin-top:3px;" ng-show="dropdown == false" class="glyphicon glyphicon-triangle-bottom"></span>
+				<span style="font-size: 8px;margin-top:3px;" ng-show="dropdown" class="glyphicon glyphicon-triangle-top"></span>
 			</button>
 		</li>
 		<!-- <li ng-show="is_logged == true">
