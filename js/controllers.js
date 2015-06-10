@@ -236,22 +236,26 @@ app.controller('Parties', ['$scope','$interval', '$http','$filter','gameService'
     toto.then(function(data) {
         $scope.playing_games = data;
         var a_day = 86400000;
-        var date_now = Date.now();
-        for (var i = 0; i < $scope.playing_games.length; i++) {
-          var date_game = Date.parse($scope.playing_games[i].creation_game);
-          if($scope.playing_games[i].round >= (total_round*2) || date_now-date_game > 4*a_day){
-            new_data_game = $scope.playing_games[i];
-            new_data_game.is_finished = 1;
-            var tutu = gameService.update_current_game(new_data_game);
-            tutu.then(function(data){
-              add_score_users(new_data_game);
-              $scope.GetNotifGames($scope.current_user.id_user);
-              $scope.GetPlayingGames($scope.current_user.id_user);
-            });
+        $http.get('./php/get_date.php').
+          success(function(data) {
+            current_date = new Date(data);
+            var date_now = Date.parse(current_date);
+          for (var i = 0; i < $scope.playing_games.length; i++) {
+            var date_game = Date.parse($scope.playing_games[i].creation_game);
+            if($scope.playing_games[i].round >= (total_round*2) || date_now-date_game > 4*a_day){
+              new_data_game = $scope.playing_games[i];
+              new_data_game.is_finished = 1;
+              var tutu = gameService.update_current_game(new_data_game);
+              tutu.then(function(data){
+                add_score_users(new_data_game);
+                $scope.GetNotifGames($scope.current_user.id_user);
+                $scope.GetPlayingGames($scope.current_user.id_user);
+              });
+            };
           };
-        };
-        new_data = $filter('exact')(data,{current_player: id.toString()});
-        $scope.notif = new_data.length;
+          new_data = $filter('exact')(data,{current_player: id.toString()});
+          $scope.notif = new_data.length;
+        });
     });
   };
 
@@ -655,7 +659,6 @@ app.controller('SetThemes', ['$scope','$http', function($scope,$http){
     $http.get('./php/get_setting_theme.php').
       success(function(data) {
         $scope.themes = data;
-        console.log($scope.themes);
       });
   };
 
