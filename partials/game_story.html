@@ -2,10 +2,10 @@
 	   <h1>Historique</h1>
 	</div >
 <div class="col-md-10 col-md-offset-1">
-	<div class="text-center well" ng-show="len_finish == 0">
+	<div class="text-center well" ng-if="len_finish == 0">
 		<h3>Vous devez avoir joué au moin une partie pour pouvoir accéder à votre historique.</h3>
 	</div>
-	<div class="text-center well col-md-12" ng-show="len_finish > 0">
+	<div class="text-center well col-md-12" ng-if="len_finish > 0">
 		<div ng-repeat="finished_game in finished_games track by finished_game.id_game">
             <div ng-class="finished_game.winner_id == current_user.id_user ? 'success' : finished_game.winner_id == 'none' ? 'warning' : 'danger'" class="row panel" style="padding:3px; padding-top: 0px; margin:10px;">
 			    <div class="col-md-3" style="margin-top:-12px;"><h3 class="pull-left"><span ng-class="finished_game.user_id_1 == current_user.id_user ? 'label-primary' : 'label-default'" class="label">{{finished_game.user_name_1}}</span></h3></div>
@@ -13,9 +13,9 @@
 			    	<div class="btn-group " style="margin-top:6px;">
 			    		<button class="btn disabled" ng-class="finished_game.score_1 > finished_game.score_2 ? 'btn-success' : finished_game.score_1 < 	finished_game.score_2 ? 'btn-danger' : 'btn-warning'">{{finished_game.score_1}}</button>
 			    		<button type="button" style="width: 250px" class="btn btn-default disabled">
-			    			<b ng-show="finished_game.score_1 > finished_game.score_2">Vainqueur : {{finished_game.user_name_1}}</b>
-			    			<b ng-show="finished_game.score_1 == finished_game.score_2">Partie Nulle</b>
-			    			<b ng-show="finished_game.score_1 < finished_game.score_2">Vainqueur : {{finished_game.user_name_2}}</b>
+			    			<b ng-if="finished_game.score_1 > finished_game.score_2">Vainqueur : {{finished_game.user_name_1}}</b>
+			    			<b ng-if="finished_game.score_1 == finished_game.score_2">Partie Nulle</b>
+			    			<b ng-if="finished_game.score_1 < finished_game.score_2">Vainqueur : {{finished_game.user_name_2}}</b>
 			    		</button>
 			    		<button class="btn disabled" ng-class="finished_game.score_1 < finished_game.score_2 ? 'btn-success' : finished_game.score_1 > 	finished_game.score_2 ? 'btn-danger' : 'btn-warning'">{{finished_game.score_2}}</button>
 			    	</div>

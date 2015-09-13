@@ -5,7 +5,7 @@
  		<p style="font-size: 18px" ng-hide="is_logged">&nbsp&nbspInscrivez ou connectez vous pour jouer à des quizz en plusieurs manches avec vos camarades et vos amis.
  		Gagnez des parties et ajoutez des questions aux quizz pour gagner des 
  		points et montrer à tout le monde que vous êtes le meilleur.</p>
-    <p style="font-size: 18px" ng-show="is_logged">&nbsp&nbspDès à présent, comme vous êtes connecté, vous pouvez jouer à des quizz en plusieurs manches avec vos camarades et vos amis. 
+    <p style="font-size: 18px" ng-if="is_logged">&nbsp&nbspDès à présent, comme vous êtes connecté, vous pouvez jouer à des quizz en plusieurs manches avec vos camarades et vos amis. 
     Gagnez des parties et ajoutez des questions aux quizz pour gagner des points et montrer à tout le monde que vous êtes le meilleur.</p>
 
  	</div>
@@ -13,7 +13,7 @@
  	  <a href="#/Connexion" style="margin: 30px" type="button" class="btn btn-lg btn-warning">Connexion</a>
  	  <a href="#/Inscription" style="margin: 30px" type="button" class="btn btn-lg btn-warning">Inscription</a>
  	</div>
-  <div style="margin-top: 80px" class="col-md-8 col-md-offset-2 text-center"  ng-show="is_logged">
+  <div style="margin-top: 80px" class="col-md-8 col-md-offset-2 text-center"  ng-if="is_logged">
     <a href="#/Game" style="margin: 30px" type="button" class="btn btn-lg btn-warning">Jouer</a>
     <a href="#/ProposerQuestion" style="margin: 30px" type="button" class="btn btn-lg btn-warning">Proposer une question</a>
   </div>
@@ -34,7 +34,7 @@
   			<h3 style="margin-top: 0px; color: #009d27"><span class="glyphicon glyphicon-play">&nbspJouez avec vos amis</h3>
   			<p style="font-size: 18px">&nbsp&nbspJouez des parties en 3 manches. Remportez des parties afin de gagner des points et ainsi monter dans le classement.</p>
   		</div>
-      <div class="well col-md-3 col-md-offset-1" style="min-heigth: 500px" ng-show="is_logged">
+      <div class="well col-md-3 col-md-offset-1" style="min-heigth: 500px" ng-if="is_logged">
         <h3 style="margin-top: 0px; color: #009d27"><span class="glyphicon glyphicon-star">&nbspMontez dans le classement</h3>
         <p style="font-size: 18px">&nbsp&nbspUne question validée par un administrateur vous rapporte <b>1</b> point, une partie gagnée vous donne <b>3</b> points et une partie nulle <b>1</b> point.</p>
       </div>

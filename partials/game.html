@@ -1,26 +1,26 @@
 	<div class="container col-md-10 col-md-offset-1">
-		<div ng-show="viewTheme == false && launched == false && button_end_game == false && round < 4 && current_user.quizz_id != undefined && themes_len >= 2" class="text-center well  col-md-6 col-md-offset-3" >
-			<button type="button" ng-class="{disabled: playing_games.length >= 10}" class="btn btn-success btn-lg" ng-show="round == 0" ng-click='NewGame(current_user.id_user,current_user.pseudo,current_user.quizz_id)'>Partie Rapide</button>
+		<div ng-if="viewTheme == false && launched == false && button_end_game == false && round < 4 && current_user.quizz_id != undefined && themes_len >= 2" class="text-center well  col-md-6 col-md-offset-3" >
+			<button type="button" ng-class="{disabled: playing_games.length >= 10}" class="btn btn-success btn-lg" ng-if="round == 0" ng-click='NewGame(current_user.id_user,current_user.pseudo,current_user.quizz_id)'>Partie Rapide</button>
             <h4>Ou</h4>
-            <div ng-show="bad_pseudo" class="alert alert-danger" style="margin-top:15px" role="alert">{{msg}}</div>
+            <div ng-if="bad_pseudo" class="alert alert-danger" style="margin-top:15px" role="alert">{{msg}}</div>
             <form role="form" style="margin-top:15px">
                 <div class="input-group" ng-class="{'has-error': bad_pseudo}" >
                     <input class="form-control" type="text" ng-model="pseudo_2" placeholder="Pseudo du joueur" style="z-index=0;"/>
                     <span class="input-group-btn">
-			            <button type="button" ng-class="{disabled: !pseudo_2 || playing_games.length >= 10}" class="btn btn-success" ng-show="round == 0" ng-click='NewSpecificGame(current_user.id_user,current_user.pseudo,current_user.quizz_id,pseudo_2)'>Lancer Partie</button>
+			            <button type="button" ng-class="{disabled: !pseudo_2 || playing_games.length >= 10}" class="btn btn-success" ng-if="round == 0" ng-click='NewSpecificGame(current_user.id_user,current_user.pseudo,current_user.quizz_id,pseudo_2)'>Lancer Partie</button>
                     </span>
                 </div>
             </form>
         </div>
-		<div class="well text-center col-md-8 col-md-offset-2" ng-show="current_user.quizz_id == undefined">
+		<div class="well text-center col-md-8 col-md-offset-2" ng-if="current_user.quizz_id == undefined">
 			<h3  style="margin-top:-10px;">Veuillez vous inscrire à un quizz avant de jouer</h3>
 			<a type="button" href="#/RejoindreQuizz" class="btn btn-success">Rejoindre un quizz</a>
 		</div>
-		<div class="well text-center col-md-8 col-md-offset-2" ng-show="current_user.quizz_id != undefined && themes_len < 2">
+		<div class="well text-center col-md-8 col-md-offset-2" ng-if="current_user.quizz_id != undefined && themes_len < 2">
 			<h3  style="margin-top:-10px;">Il n'y a pas encore assez de questions pour jouer. Veuillez en ajouter.</h3>
 			<a type="button" href="#/ProposerQuestion" class="btn btn-success">Ajouter une question</a>
 		</div>
-		<div ng-show="viewTheme == false && launched == false && button_end_game == false && playing_games.length > 0" class="text-center well  col-md-12" ng->
+		<div ng-if="viewTheme == false && launched == false && button_end_game == false && playing_games.length > 0" class="text-center well  col-md-12" ng->
 			<h3  style="margin-top:-10px;">Parties En Cours</h3>
 			<div ng-repeat="playing_game in playing_games track by playing_game.id_game">
 				<div ng-class="current_user.id_user == playing_game.current_player ? 'success' : 'warning'" class="row panel" style="padding:3px; padding-top: 0px; margin:10px">
@@ -32,8 +32,8 @@
 					</div>
 					<div class="col-md-2 col-sm-2 ">
 						<button style="margin-top:6px;" type="button" ng-click="ContinueGame(playing_game.id_game)" ng-class="current_user.id_user != playing_game.current_player ? 'disabled btn-warning' : 'btn-success'"class="btn " >
-						<b ng-show="current_user.id_user != playing_game.current_player">En Attente</b>
-						<b ng-show="current_user.id_user == playing_game.current_player">Manche {{Math.floor(playing_game.round/2)+1}}</b>
+						<b ng-if="current_user.id_user != playing_game.current_player">En Attente</b>
+						<b ng-if="current_user.id_user == playing_game.current_player">Manche {{Math.floor(playing_game.round/2)+1}}</b>
 						</button>
 					</div>
 					<div class="col-md-5 col-sm-5" style="margin-top:-13px;">
@@ -47,28 +47,28 @@
 		</div>
 
 		<br/>
-		<div class="well" data-ng-show="timer_div" style="padding-bottom: 0;">
+		<div class="well" data-ng-if="timer_div" style="padding-bottom: 0;">
 			<div class="progress">
 				<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{timer/30*100}}%"></div>
 			</div>
 		</div>
-		<div class="well text-center col-md-8 col-md-offset-2" ng-show="viewTheme">
+		<div class="well text-center col-md-8 col-md-offset-2" ng-if="viewTheme">
 			<h3  style="margin-top:-10px;">Choisir un thème</h3>
 			<button type="button" ng-repeat="theme in randThemes" ng-click="themeSelect(theme.id_theme)" style="white-space: normal; width:200px; margin:10px;" class="btn btn-default btn-lg">{{theme.name_theme}}</button>
 		</div>
-		<div class="well well-sm text-center col-md-10 col-md-offset-1" ng-show="launched" ng-repeat="question in playings" >
+		<div class="well well-sm text-center col-md-10 col-md-offset-1" ng-if="launched" ng-repeat="question in playings" >
 		 	<h4><span class="label label-success">Question {{turn+1}} </span></h4>
 			<h3>{{question.value}}</h3>
 			<button type="button" ng-repeat="reponse in question.reponses | orderBy:'rank' " ng-click="reponseCheck(reponse.valid)" style="white-space: normal; width:200px; margin:10px;" class="btn btn-default btn-lg btn-lock">{{reponse.name}}</button>
 		</div>
-		<div ng-show="launched || button_end_game" >
+		<div ng-if="launched || button_end_game" >
 			<!-- A Changer -->
 			<div class="col-md-4 col-md-offset-4 text-center">
-				<div ng-show="current_game.is_finished == '1' && current_game.score_1 > current_game.score_2 && current_game.user_id_1 == current_user.id_user" class="alert alert-success"><h3>Victoire</h3></div>
-				<div ng-show="current_game.is_finished == '1' && current_game.score_1 < current_game.score_2 && current_game.user_id_2 == current_user.id_user" class="alert alert-success"><h3>Victoire</h3></div>
-				<div ng-show="current_game.is_finished == '1' && current_game.score_1 == current_game.score_2" class="alert alert-warning"><h3>Partie Nulle</h3></div>
-				<div ng-show="current_game.is_finished == '1' && current_game.score_1 > current_game.score_2 && current_game.user_id_2 == current_user.id_user" class="alert alert-danger"><h3>Défaite</h3></div>
-				<div ng-show="current_game.is_finished == '1' && current_game.score_1 < current_game.score_2 && current_game.user_id_1 == current_user.id_user" class="alert alert-danger"><h3>Défaite</h3></div>
+				<div ng-if="current_game.is_finished == '1' && current_game.score_1 > current_game.score_2 && current_game.user_id_1 == current_user.id_user" class="alert alert-success"><h3>Victoire</h3></div>
+				<div ng-if="current_game.is_finished == '1' && current_game.score_1 < current_game.score_2 && current_game.user_id_2 == current_user.id_user" class="alert alert-success"><h3>Victoire</h3></div>
+				<div ng-if="current_game.is_finished == '1' && current_game.score_1 == current_game.score_2" class="alert alert-warning"><h3>Partie Nulle</h3></div>
+				<div ng-if="current_game.is_finished == '1' && current_game.score_1 > current_game.score_2 && current_game.user_id_2 == current_user.id_user" class="alert alert-danger"><h3>Défaite</h3></div>
+				<div ng-if="current_game.is_finished == '1' && current_game.score_1 < current_game.score_2 && current_game.user_id_1 == current_user.id_user" class="alert alert-danger"><h3>Défaite</h3></div>
 			</div>
 			<div ng-hide="viewTheme" class="well well-sm col-md-2 col-md-offset-5 text-center">
 				<div>
@@ -79,7 +79,7 @@
 						<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="width: {{falseRep/3*100}}%">
 						</div>
 					</div>
-					<button type="button" class="btn btn-success" ng-show="button_end_game" ng-click="button_end_game = false">Continuer</button>
+					<button type="button" class="btn btn-success" ng-if="button_end_game" ng-click="button_end_game = false">Continuer</button>
 				</div>
 			</div>
 		</div>

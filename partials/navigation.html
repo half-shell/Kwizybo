@@ -1,28 +1,28 @@
-<nav ng-show="is_logged && dropdown" class="navbar navbar-default navbar-fixed-top" style="margin-top: 51px; padding-bottom:51px ; box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5); z-index: 2;overflow-y: auto; height: 100%;  width: 16.66666667%;">
+<nav ng-if="is_logged && dropdown" class="navbar navbar-default navbar-fixed-top" style="margin-top: 51px; padding-bottom:51px ; box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5); z-index: 2;overflow-y: auto; height: 100%;  width: 16.66666667%;">
 		<ul class="nav nav-pills nav-stacked" style="padding-bottom:5px;">
 		<h5 style="margin-left: 20px;">Menu</h5>
-		<li ng-show="is_logged == true" ng-class="{active: active('/Historique')}">
+		<li ng-if="is_logged == true" ng-class="{active: active('/Historique')}">
 			<a href="#/Historique"><span class="glyphicon glyphicon-hourglass"></span>&nbspHistorique</a>
 		</li>
-		<li ng-show="is_logged == true && current_user.quizz_id != undefined" ng-class="{ active: active('/ProposerQuestion')}">
+		<li ng-if="is_logged == true && current_user.quizz_id != undefined" ng-class="{ active: active('/ProposerQuestion')}">
 			<a href="#/ProposerQuestion"><span class="glyphicon glyphicon-pencil"></span>&nbspProposer une Question</a>
 		</li>
-		<li ng-show="is_logged == true && current_user.quizz_id != undefined" ng-class="{ active: active('/CorrigerQuestions')}">
+		<li ng-if="is_logged == true && current_user.quizz_id != undefined" ng-class="{ active: active('/CorrigerQuestions')}">
 			<a href="#/CorrigerQuestions"><span class="glyphicon glyphicon-erase"></span>&nbspCorriger ses Questions</a>
 		</li>
-		<li ng-show="is_logged == true && current_user.quizz_id == undefined" ng-class="{ active: active('/RejoindreQuizz')}">
+		<li ng-if="is_logged == true && current_user.quizz_id == undefined" ng-class="{ active: active('/RejoindreQuizz')}">
 			<a href="#/RejoindreQuizz"><span class="glyphicon glyphicon-log-in"></span>&nbspRejoindre un Quizz</a>
 		</li>
-		<li ng-show="is_logged == true" ng-class="{ active: active('/Classement')}">
+		<li ng-if="is_logged == true" ng-class="{ active: active('/Classement')}">
 			<a href="#/Classement"><span class="glyphicon glyphicon-star-empty"></span>&nbspClassement</a>
 		</li>
 	</ul>
 
-	<ul ng-show="admin" class="nav nav-pills nav-stacked" style="padding-bottom:5px;">
+	<ul ng-if="admin" class="nav nav-pills nav-stacked" style="padding-bottom:5px;">
 		<hr style="margin: 10px; border-color: #B9D9B4;">
 		<h5 style="margin-left: 20px;">Outils de Gestion</h5>
 		<li ng-class="{active: active('/ValiderQuestions')}">
-			<a href="#/ValiderQuestions" ><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>&nbsp&nbspValider des Questions&nbsp&nbsp<span data-ng-show="questions_to_validate >= 1"  class="badge">{{questions_to_validate}}</span></a>
+			<a href="#/ValiderQuestions" ><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span>&nbsp&nbspValider des Questions&nbsp&nbsp<span data-ng-if="questions_to_validate >= 1"  class="badge">{{questions_to_validate}}</span></a>
 		</li>
 		<li ng-class="{active: active('/EditerQuestions')}">
 			<a href="#/EditerQuestions"><span class="glyphicon glyphicon-th-list"></span>&nbsp&nbspEditer les Questions</a>
@@ -33,7 +33,7 @@
 		<li ng-class="{active: active('/EditerThemes')}">
 			<a href="#/EditerThemes"><span class="glyphicon glyphicon-tags"></span>&nbsp&nbspEditer les Thèmes</a>
 		</li>
-		<li ng-class="{active: active('/AjouterQuizz')}" ng-show="current_user.quizz_id == undefined">
+		<li ng-class="{active: active('/AjouterQuizz')}" ng-if="current_user.quizz_id == undefined">
 			<a href="#/AjouterQuizz"><span class="glyphicon glyphicon-edit"></span>&nbsp&nbspAjouter un Quizz</a>
 		</li>
 		<li ng-class="{active: active('/EditerQuizz')}">
@@ -50,13 +50,13 @@
 
 		<a class="navbar-brand" href="#/Home"><span class="glyphicon glyphicon-education"></span>&nbspKwizybo<p style="margin-top: -5px;font-size: 12px;">Alpha 1.2</p></a>
 		<li>
-			<button ng-class="{active: dropdown}" style="margin-top:15px; color: #009d27; padding:5px; padding-top:1px;padding-bottom: 0;" class="btn btn-default" role="button" ng-show="is_logged == true" ng-class="{active: active('/Game')}" ng-click="changeDropdown()">
+			<button ng-class="{active: dropdown}" style="margin-top:15px; color: #009d27; padding:5px; padding-top:1px;padding-bottom: 0;" class="btn btn-default" role="button" ng-if="is_logged == true" ng-class="{active: active('/Game')}" ng-click="changeDropdown()">
 				<span style="font-size: 17px;" class="glyphicon glyphicon-menu-hamburger pull-left"></span>
-				<span style="font-size: 8px;margin-top:3px;" ng-show="dropdown == false" class="glyphicon glyphicon-triangle-bottom"></span>
-				<span style="font-size: 8px;margin-top:3px;" ng-show="dropdown" class="glyphicon glyphicon-triangle-top"></span>
+				<span style="font-size: 8px;margin-top:3px;" ng-if="dropdown == false" class="glyphicon glyphicon-triangle-bottom"></span>
+				<span style="font-size: 8px;margin-top:3px;" ng-if="dropdown" class="glyphicon glyphicon-triangle-top"></span>
 			</button>
 		</li>
-		<!-- <li ng-show="is_logged == true">
+		<!-- <li ng-if="is_logged == true">
 			<select style="margin:8px;" onchange="this.style.backgroundColor = '#e6ffe2'"class="form-control" ng-model="updated_question.theme_id">
 				<option ng-repeat="theme in themes" ng-value="theme.id_theme" ng-selected="updated_question.theme_id == theme.id_theme">{{theme.name_theme}}
 				</option>
@@ -66,8 +66,8 @@
 
 	<ul class="nav navbar-nav col-md-2">
 		<li class="col-md-offset-5">
-			<button style="margin-top:8px" class="btn btn-warning" ng-click="play_button()" role="button"  ng-show="is_logged == true" ng-class="{active: active('/Game')}">Jouer
-				<span ng-show="notif >= 1">&nbsp
+			<button style="margin-top:8px" class="btn btn-warning" ng-click="play_button()" role="button"  ng-if="is_logged == true" ng-class="{active: active('/Game')}">Jouer
+				<span ng-if="notif >= 1">&nbsp
 					<span class="label label-danger">{{notif}}</span>
 				</span>
 			</button>
@@ -75,19 +75,19 @@
 	</ul>
 
 	<ul class="nav navbar-nav navbar-right col-md-{{4}}" style="padding-right: 15px">
-		<li  class="pull-right" ng-show="is_logged == true">
+		<li  class="pull-right" ng-if="is_logged == true">
 			<a ng-click="logout()">Déconnexion</a>
 		</li>
-		<li  class="pull-right" ng-show="is_logged == true">
+		<li  class="pull-right" ng-if="is_logged == true">
 			<h4 style="margin: 5px; margin-top: 14px"><span class="label label-warning">Score : {{current_user.score_user}}</span></h4>
 		</li>
-		<li  class="pull-right" ng-show="is_logged == true" ng-class="{ active: active('/MonCompte')}">
+		<li  class="pull-right" ng-if="is_logged == true" ng-class="{ active: active('/MonCompte')}">
 			<a href="#/MonCompte"><span class="glyphicon glyphicon-user"></span>&nbsp{{current_user.pseudo}}</a>
 		</li>
-		<li  class="pull-right" ng-show="is_logged == false" ng-class="{ active: active('/Inscription')}">
+		<li  class="pull-right" ng-if="is_logged == false" ng-class="{ active: active('/Inscription')}">
 			<a href="#/Inscription">Inscription</a>
 		</li>
-		<li  class="pull-right" ng-show="is_logged == false" ng-class="{ active: active('/Connexion')}">
+		<li  class="pull-right" ng-if="is_logged == false" ng-class="{ active: active('/Connexion')}">
 			<a href="#/Connexion">Connexion</a>
 		</li>
 	</ul>

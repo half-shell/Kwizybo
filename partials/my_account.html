@@ -3,7 +3,7 @@
 </div >
 <div class="container col-md-8 col-md-offset-2">
 	<div class=" col-md-5 ">
-	<div ng-show="infos" class="alert " ng-class="bad_infos ? 'alert-danger':'alert-success'" role="alert">{{msg}}<h3 class="text-center" style="margin-top: 7px; margin-bottom: 3px" ng-show="bad_infos">{{quizz_code}}</h3></div>
+	<div ng-if="infos" class="alert " ng-class="bad_infos ? 'alert-danger':'alert-success'" role="alert">{{msg}}<h3 class="text-center" style="margin-top: 7px; margin-bottom: 3px" ng-if="bad_infos">{{quizz_code}}</h3></div>
  	<div class="panel panel-warning">
   		<div class="panel-heading"><h3 class="panel-title">Informations</h3></div>
   		<div class="panel-body">
