@@ -33,6 +33,7 @@ app.config(function($routeProvider) {
     });
     $routeProvider.when('/Connexion', {
         title: '- Connexion',
+        controller: 'SignIn',
         templateUrl: 'partials/sign_in.html'
     });
     $routeProvider.when('/Themes', {

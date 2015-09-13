@@ -308,4 +308,8 @@ angular
     };
   };
 
+  $scope.end_game_click = function(){
+    $scope.button_end_game = false;
+  };
+
 }]);
