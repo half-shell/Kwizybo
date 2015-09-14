@@ -10,7 +10,7 @@ angular
         $scope.users = data;
       });
   };
-    $scope.fieldOrder = null;
+  $scope.fieldOrder = null;
   $scope.directionOrder = null;
   $scope.setFieldOrder = function(field){
     if($scope.fieldOrder == field){

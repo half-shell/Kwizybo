@@ -9,9 +9,9 @@
 				<option value=''>Selectionner un thème</option>
 			</select>
 			<br/>
-			<div class="form-group text-left" ng-if="theme_filter != undefined">
+			<div class="form-group text-left" ng-show="theme_filter != undefined">
 				<label class="control-label">Rechercher</label>
-				<input type="text" ng-model="searchFilter" class="form-control" />
+				<input type="text" data-ng-model="searchFilter" class="form-control" />
 				<br/>
 				<label>Vous avez <b style="font-size:20px">{{questions.length}}</b> questions au total.</label>
 			</div>

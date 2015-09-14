@@ -9,7 +9,7 @@
 			<option value=''>Selectionner un quizz</option>
 		</select>
 		<br/>
-		<div class="form-group text-left" ng-if="quizz_filter != undefined">
+		<div class="form-group text-left" ng-show="quizz_filter != undefined">
 			<label class="control-label">Rechercher</label>
 			<input type="text" ng-model="searchFilter" class="form-control" />
 			<br/>

@@ -1,7 +1,7 @@
 <div class="well text-center col-md-4 col-md-offset-4" style="padding:0; color: #009d27">
 	<h1>Question Rejetées</h1>
 </div >
-<div class="form-group text-left well col-md-4 col-md-offset-4" ng-if="is_questions() >= 1">
+<div class="form-group text-left well col-md-4 col-md-offset-4" ng-show="is_questions() >= 1">
 	<label class="control-label">Rechercher</label>
 	<input type="text" ng-model="searchFilter" class="form-control" />
 	<br/>
